@@ -72,7 +72,7 @@ class FeishuWSClient:
                     print("[FeishuWS] 获取 token 失败，等待重试...")
                     time.sleep(retry_delay)
                     retry_delay = min(retry_delay * 2, max_delay)
-                    continue
+                    continue  # 不构造 WebSocket，直接下一轮重试
 
                 ws_url = self._get_websocket_url()
 

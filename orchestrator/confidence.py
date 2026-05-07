@@ -1,4 +1,5 @@
 """
+import os
 Confidence Model - v3.0 置信度计算
 基于: 来源节点权威度 × 时效性系数 × 交叉验证系数
 """
@@ -58,8 +59,7 @@ class ConfidenceModel:
 
     def set_authority(self, node_id: str, authority: float):
         """设置节点权威度（仲裁后调用）"""
-        authority = max(self.AUTHORITY_RANGE[0],
-                      min(self.AUTHORITY_RANGE[1], authority))
+        authority = max(self.AUTHORITY_RANGE[0], min(self.AUTHORITY_RANGE[1], authority))
         self.authority_db[node_id] = authority
         self._save_to_disk()
 

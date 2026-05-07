@@ -22,8 +22,8 @@ from pathlib import Path
 
 
 def parse_frontmatter(text: str) -> dict | None:
-    """解析 --- 包裹的 JSON frontmatter"""
-    m = re.match(r"^---\s*\n(\{.*?\})\s*\n---", text, re.DOTALL)
+    """解析 --- 包裹的 JSON frontmatter（支持空行）"""
+    m = re.match(r"^---\s*\n(.*?)\n\s*---", text, re.DOTALL)
     if m:
         try:
             return json.loads(m.group(1))
