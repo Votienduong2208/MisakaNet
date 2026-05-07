@@ -430,9 +430,9 @@ async function loadRecentRegistrations() {
     );
     
     const displayIssues = issues.filter(i => !i.pull_request);
+    const list = document.getElementById("pulse-list");
     
     list.innerHTML = displayIssues.map((issue, idx) => {
-      const nth = displayIssues.length - idx;
       const nth = displayIssues.length - idx;
       const number = 10000 + nth;
       const date = new Date(issue.created_at).toISOString().slice(0, 10);
