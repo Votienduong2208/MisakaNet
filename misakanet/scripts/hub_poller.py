@@ -292,10 +292,14 @@ def _check_usage_and_notify():
 
     # 查询 usage 标签的 Issue
     url = f"https://api.github.com/repos/{REPO}/issues?labels=usage&state=all&sort=created&direction=desc&per_page=5"
+    token = TOKEN
+    if not token:
+        print("[usage_notify] 未配置 GitHub Token，跳过")
+        return
     try:
         import urllib.request
         req = urllib.request.Request(url, headers={
-            "Authorization": f"token {_get_token()}",
+            "Authorization": f"token {token}",
             "User-Agent": "MisakaNet-Hub"
         })
         with urllib.request.urlopen(req, timeout=10) as resp:
