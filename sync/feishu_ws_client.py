@@ -33,8 +33,14 @@ class FeishuWSClient:
         """获取 WebSocket 连接 URL"""
         return "wss://open.feishu.cn/open-apis/bot/v2/ws"
 
+    _token_cache = None
+    _token_expires_at = 0.0
+
     def _get_token(self) -> str:
-        """获取 tenant_access_token"""
+        """获取 tenant_access_token（带 1h 缓存）"""
+        import time
+        if self._token_cache and time.time() < self._token_expires_at:
+            return self._token_cache
         import requests
         url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal"
         resp = requests.post(url, json={
@@ -43,7 +49,9 @@ class FeishuWSClient:
         }, timeout=10)
         if resp.status_code == 200:
             data = resp.json()
-            return data.get("tenant_access_token", "")
+            self._token_cache = data.get("tenant_access_token", "")
+            self._token_expires_at = time.time() + (data.get("expire", 7200) - 60)
+            return self._token_cache
         return ""
 
     def start(self):
@@ -74,11 +82,12 @@ class FeishuWSClient:
                     retry_delay = min(retry_delay * 2, max_delay)
                     continue  # 不构造 WebSocket，直接下一轮重试
 
-                ws_url = self._get_websocket_url()
+                ws_url = self._get_websocket_url() + f"?token={token}"
 
                 self.ws = websocket.WebSocketApp(
                     ws_url,
-                    header=[f"Authorization: Bearer {token}"],
+                    # Feishu WebSocket token 通过 URL query 传递
+                    header=[],
                     on_message=self._on_message,
                     on_error=self._on_error,
                     on_close=self._on_close,

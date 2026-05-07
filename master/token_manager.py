@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from typing import Optional
 import json
 import os
+import keyring
 
 
 class TokenManager:
@@ -154,8 +155,7 @@ class AuditLogger:
             action: Action type (UNLOCK, ADD_AGENT, REMOVE_AGENT, etc.)
             actor: Who performed the action (token prefix for security)
             details: Additional details
-        """
-        import keyring  # Optional dependency
+        """  # Optional dependency
 
         entry = {
             "timestamp": datetime.now().isoformat(),

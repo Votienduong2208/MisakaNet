@@ -324,15 +324,10 @@ class SkillIndexer:
     def get_delta_since(self, sync_version: int) -> list[dict]:
         """Get all skills changed since given sync version
 
-        TODO: 每个 skill 注册时递增 sync_version，当前返回全部（完整同步）
+        注意: 当前未实现逐 skill 的 sync_version 标记，总返回全量。
+              TODO: register_skill 时递增全局 sync_version 并写入每个 skill 条目。
         """
-        if sync_version <= 0:
-            return list(self.index["skills"].values())
-        # Filter by embedded sync_version if available
-        return [
-            s for s in self.index["skills"].values()
-            if s.get("sync_version", 0) > sync_version
-        ] or list(self.index["skills"].values())
+        return list(self.index["skills"].values())
 
     def stats(self) -> dict:
         """Get index statistics"""

@@ -1,10 +1,10 @@
 """
-import os
 Confidence Model - v3.0 置信度计算
 基于: 来源节点权威度 × 时效性系数 × 交叉验证系数
 """
 import math
-from datetime import datetime
+import os
+from datetime import datetime, timezone
 from typing import Optional
 
 
@@ -48,7 +48,7 @@ class ConfidenceModel:
 
     def _save_to_disk(self):
         """持久化权威度数据到磁盘"""
-        import json, os
+        import json
         os.makedirs(os.path.dirname(self.AUTHORITY_DB_PATH), exist_ok=True)
         with open(self.AUTHORITY_DB_PATH, 'w') as f:
             json.dump(self.authority_db, f, indent=2)
@@ -81,16 +81,18 @@ class ConfidenceModel:
         """
         try:
             indexed_time = datetime.fromisoformat(indexed_at)
-            age_days = (datetime.now() - indexed_time).total_seconds() / 86400
+            # 确保 indexed_time 有时区信息
+            now = datetime.now(timezone.utc)
+            if indexed_time.tzinfo is None:
+                from datetime import timezone as tz
+                indexed_time = indexed_time.replace(tzinfo=tz.utc)
+            age_days = (now - indexed_time).total_seconds() / 86400
             return math.exp(-self.LAMBDA * age_days)
         except (ValueError, TypeError):
             return 1.0  # 无法解析时默认满分
 
     def calc_cross_factor(self, source_count: int) -> float:
-        """
-        计算交叉验证系数
-        1节点=0.8，2节点=0.95，3节点+=1.0
-        """
+        """计算交叉验证系数"""
         if source_count <= 0:
             return 0.8
         elif source_count == 1:
@@ -101,26 +103,20 @@ class ConfidenceModel:
             return 1.0
 
     def calc_confidence(self, skill: dict) -> float:
-        """
-        计算单条 Skill 的置信度
-        """
-        # 来源节点权威度
+        """计算单条 Skill 的置信度"""
         source = skill.get("source", "unknown")
         if isinstance(source, list):
             source = source[0] if source else "unknown"
         authority = self.get_authority(source)
 
-        # 时效性系数
         indexed_at = skill.get("indexed_at", "")
         time_factor = self.calc_time_factor(indexed_at)
 
-        # 交叉验证系数
         sources = skill.get("sources", [source])
         if not isinstance(sources, list):
             sources = [sources]
         cross_factor = self.calc_cross_factor(len(sources))
 
-        # 综合计算
         confidence = authority * time_factor * cross_factor
         return round(min(1.0, confidence), 4)
 
