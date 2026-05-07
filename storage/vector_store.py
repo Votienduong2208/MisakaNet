@@ -11,7 +11,7 @@ class VectorStore:
     """Chroma-based vector store for skills and knowledge"""
 
     def __init__(self, persist_dir: str, collection_name: str = "skills"):
-        self.client = chromadb.Client(Settings(
+        self.client = chromadb.PersistentClient(
             persist_directory=persist_dir,
             anonymized_telemetry=False
         ))
