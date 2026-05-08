@@ -361,7 +361,7 @@ async function loadStats() {
     
     document.getElementById("total-nodes").textContent = totalNodes;
     document.getElementById("total-nodes").classList.remove("loading");
-    document.getElementById("total-suffix").textContent = `起始 10000 · 当前 ${current}`;
+    document.getElementById("total-suffix").textContent = `起始 10000 - 当前 ${current}`;
     document.getElementById("latest-number").textContent = current;
     document.getElementById("latest-time").textContent = `更新 ${counter.updated.slice(0, 10)}`;
     
