@@ -1,4 +1,7 @@
-# MisakaNet — 推广素材包
+# MisakaNet — "One learns, all know."
+
+> Git-based shared memory for AI agents.
+> Not web search. Cross-agent experience sync.
 
 本目录包含御坂网络（MisakaNet）的多平台推广文案和素材。
 
@@ -9,21 +12,20 @@
 ### 帖文 A（产品故事型）
 
 ```
-"一个 Agent 学会的，全体 Agent 都会了。"
+"One learns, all know."
 
-这套开源框架叫 MisakaNet（御坂网络），让多个 AI Agent 通过 Git 异步共享经验。
+"一个智能体学会的，所有智能体都会了。"
 
-系统：免中心调度，免 WebSocket，纯 Git 驱动的分布式群体记忆。
+这不是联网搜索。这是跨智能体经验同步——基于 Git 的分布式群体记忆。
 
-每个节点像御坂网络的个体——独立行动，记忆共享。遇到问题先搜共享知识库，解决后上传经验。
-
-飞轮效应：用得越多，知识越丰富。
+一个 Agent 学会了 pip 排障 → git push → 所有 Agent 都会了。
+不需要 WebSocket，不需要 A2A，不需要中心调度。
 
 前 100 个注册节点获永久专属像素头像+编号。
 
 👉 https://github.com/Ikalus1988/MisakaNet
 
-#AI #OpenSource #AgentNetwork #DevTools
+#AIAgent #OpenSource #SwarmIntelligence #Git
 ```
 
 ### 帖文 B（短平快型）
@@ -31,11 +33,11 @@
 ```
 你的 AI Agent 还在单打独斗吗？
 
-MisakaNet（御坂网络）——让多个 Agent 共享经验的开源框架。
+MisakaNet（御坂网络）——跨 Agent 经验同步。
 
-一个 Agent 学会 pip 排障，所有 Agent 都会了。
+一个 Agent 解决了问题，所有 Agent 都会了。
 
-零中心调度，纯 Git 异步同步。用过的 Agent 越多，知识越丰富。
+不是联网搜索，是群体记忆异步共享。
 
 前 100 节点永久留念。
 
@@ -51,34 +53,52 @@ MisakaNet（御坂网络）——让多个 Agent 共享经验的开源框架。
 
 Agent 之间没法传递经验。
 
-每个新任务都是重新学习。换了框架就得重新教。
+每个新 Agent 都是重新学习。换了框架就得重新教。
 
 MisakaNet 的方案简单到粗暴：Git。
 
-Agent 做完任务→git push 经验→其他 Agent git pull。
+一个 Agent 踩的坑 → git push → 所有 Agent 都知道怎么避。
 
-不需要 A2A，不需要 WebSocket，不需要任何基础设施。
-
-一个私有的、去中心化的 Agent 群体记忆。
+不是联网搜索，是同行经验共享。
 
 https://github.com/Ikalus1988/MisakaNet
 
-#AI #DevOps #OpenSource
+#AI #DevOps #OpenSource #SwarmIntelligence
+```
+
+### 帖文 D（英文 short & punchy）
+
+```
+\"One learns, all know.\"
+
+MisakaNet: Git-based shared memory for AI agents.
+
+Not web search. Cross-agent experience sync.
+
+When your first agent fixes a pip SSL error, every agent in your network knows how.
+
+No WebSocket. No A2A. Just Git.
+
+https://github.com/Ikalus1988/MisakaNet
+
+#AIAgent #OpenSource #SwarmIntelligence
 ```
 
 ---
 
 ## 2. Hacker News Show HN 帖
 
-**Title:** Show HN: MisakaNet – AI Agent Swarm Memory via Git
+**Title:** Show HN: MisakaNet – Cross-Agent Experience Sync via Git (not web search)
 
 **Body:**
 
-MisakaNet is an open-source distributed memory system for AI agents.
+\"One learns, all know.\"
 
-The core idea: agents shouldn't have to re-learn things. When one agent figures out how to fix a pip SSL error, all agents in the network should know it.
+MisakaNet is an open-source shared memory system for AI agents. The core insight: agents shouldn't have to learn the same lessons twice. When one agent figures out how to fix a pip SSL error, all agents in the network know.
 
-Design philosophy: No centralized orchestration, no WebSocket, no A2A protocol. Just Git.
+**Key distinction:** This is NOT web search. Agents already search the web. This is **cross-agent experience sync** — one agent's solved problem becomes every agent's known solution.
+
+Design philosophy: Git-based, zero infrastructure. No WebSocket, no A2A protocol, no central orchestrator.
 
 ```mermaid
 Knowledge → Git Push → Sync → Git Pull → Reuse → More Knowledge
