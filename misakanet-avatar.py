@@ -42,6 +42,7 @@ SCARF_COLORS = [
 NUM_BG = (240, 240, 245)
 NUM_BORDER = (180, 180, 185)
 NUM_FG = (40, 40, 50)
+FRAME_WIDTH = 5  # 彩色边框宽度
 
 
 def scarf_color(num):
@@ -82,7 +83,15 @@ def generate_avatar(number, size=128, block=6):
     # 5. 调整到目标尺寸
     img = img.resize((size, size), Image.NEAREST)
     
-    # 6. 叠加序号
+    # 5.5 叠加彩色边框（内边框，不裁切图片）
+    frame_color = scarf_color(number)
+    draw = ImageDraw.Draw(img)
+    # 外边框
+    for fw in range(FRAME_WIDTH):
+        draw.rectangle([fw, fw, size-1-fw, size-1-fw],
+                       outline=frame_color, width=1)
+    
+    # 6. 叠加序号（在边框内底部）
     draw = ImageDraw.Draw(img)
     
     text = f"#{number}"
@@ -94,7 +103,7 @@ def generate_avatar(number, size=128, block=6):
         "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
     ]:
         if os.path.exists(fp):
-            font = ImageFont.truetype(fp, size=max(10, size // 10))
+            font = ImageFont.truetype(fp, size=max(12, size // 8))
             break
     if font is None:
         font = ImageFont.load_default()
@@ -102,11 +111,11 @@ def generate_avatar(number, size=128, block=6):
     bbox = draw.textbbox((0, 0), text, font=font)
     tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
     
-    # 号码牌
-    px, py = (size - tw - 12) // 2, size - th - 8
+    # 号码牌（加宽的圆角背景 + 边框）
+    px, py = (size - tw - 14) // 2, size - th - 14
     draw.rounded_rectangle(
-        [px-2, py-1, px+tw+2, py+th+1],
-        radius=2, fill=NUM_BG, outline=NUM_BORDER
+        [px-4, py-3, px+tw+4, py+th+3],
+        radius=4, fill=(240,240,245), outline=frame_color, width=2
     )
     
     # 文字阴影 + 本体
