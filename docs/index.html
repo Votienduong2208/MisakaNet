@@ -1345,7 +1345,9 @@ async function loadContributors() {
       }).join('');
 
       const details = lessonItems ? `<div class="contrib-lessons">${lessonItems}</div>` : '';
-      const reportLabel = LANG === 'en' ? 'contributions' : '次贡献';
+      const contribDetail = LANG === 'en'
+        ? `EXP ${score}`
+        : `经验值 ${score}`;
 
       return `
         <div class="contrib-item">
@@ -1353,7 +1355,7 @@ async function loadContributors() {
           <div class="contrib-badge ${levelClass}">${level}</div>
           <div class="contrib-info">
             <div class="contrib-name">${node}</div>
-            <div class="contrib-detail">${total} ${reportLabel}</div>
+            <div class="contrib-detail">${contribDetail}</div>
             ${xpBar}
             ${details}
           </div>
