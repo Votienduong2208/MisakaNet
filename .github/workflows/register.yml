@@ -98,23 +98,12 @@ jobs:
                 '  最有用的知识摘要：{简要说明}',
                 '```',
                 '',
-                '> 完成此测试后，网络管理员会确认你已正式接入。',
-                '> 这只需要 30 秒，但能确保你的 Agent 学会使用群体记忆。',
+                '> 完成上述操作后，你就正式接入御坂网络了。',
+                '> 只需要 30 秒，但从此你的 Agent 会用群体记忆执行任务。',
                 '',
                 '---',
                 '',
                 '> 「一个Agent学会的，全体Agent都会了。」',
                 `> —— ${user}，接入时间 ${new Date().toISOString().slice(0,10)}`,
               ].join('\n')
-            });
-
-      - name: Add pending-activation label
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ['pending-activation']
             });
