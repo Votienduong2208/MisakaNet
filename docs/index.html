@@ -440,6 +440,31 @@
   .contrib-lessons a { color: #60a5fa; text-decoration: none; }
   .contrib-lessons a:hover { text-decoration: underline; }
 
+  /* XP progress bar */
+  .contrib-xp {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .contrib-xp-track {
+    flex: 1;
+    height: 3px;
+    background: #21262d;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .contrib-xp-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+  .contrib-xp-text {
+    font-size: 10px;
+    color: #636d7b;
+    flex-shrink: 0;
+  }
+
   /* ── Register Form ── */
   .register-section {
     text-align: center;
@@ -837,12 +862,17 @@ const I18N = {
     footer: '数据来自 GitHub API',
     activeWithin: '72小时内活跃',
     activeNone: '72小时内无活动',
+    activeNow: '活跃中',
     noReport: '从未提交报告',
+    lastSeen: '上次',
+    usageReports: '次使用',
     lv0: '见习',
-    lv1: 'Lv.1 新手',
-    lv2: 'Lv.2 贡献者',
-    lv3: 'Lv.3 活跃',
-    lv4: 'Lv.4 核心',
+    lv1: 'Lv.1 入门',
+    lv2: 'Lv.2 勤勉',
+    lv3: 'Lv.3 进阶',
+    lv4: 'Lv.4 专家',
+    lv5: 'Lv.5 大师',
+    lv6: 'Lv.6 传说',
     justNow: '刚刚',
     minAgo: '分钟前',
     hourAgo: '小时前',
@@ -879,12 +909,17 @@ const I18N = {
     footer: 'Data from GitHub API',
     activeWithin: 'Active (72h)',
     activeNone: 'Inactive (72h)',
+    activeNow: 'Active Now',
     noReport: 'No reports yet',
+    lastSeen: 'Last',
+    usageReports: ' uses',
     lv0: 'Rookie',
     lv1: 'Lv.1 Novice',
-    lv2: 'Lv.2 Contributor',
-    lv3: 'Lv.3 Active',
-    lv4: 'Lv.4 Core',
+    lv2: 'Lv.2 Diligent',
+    lv3: 'Lv.3 Advanced',
+    lv4: 'Lv.4 Expert',
+    lv5: 'Lv.5 Master',
+    lv6: 'Lv.6 Legend',
     justNow: 'just now',
     minAgo: 'm ago',
     hourAgo: 'h ago',
@@ -998,28 +1033,47 @@ async function loadRecentRegistrations() {
     );
 
     const displayIssues = issues.filter(i => !i.pull_request);
-
     if (displayIssues.length === 0) {
       list.innerHTML = '<div class="loading-item">暂无注册记录</div>';
       return;
     }
 
-    // Deduplicate by user - keep the earliest (first) registration per user
-    // (users who registered multiple times: latest is usually a test)
-    const seenUsers = new Set();
-    const uniqueIssues = [];
-    for (const issue of displayIssues.reverse()) {
-      if (!seenUsers.has(issue.user.login)) {
-        seenUsers.add(issue.user.login);
-        uniqueIssues.push(issue);
-      }
+    // Extract real node numbers from comments (parallel with auth)
+    const nodeFetches = displayIssues.map(async (issue) => {
+      try {
+        const comments = await fetchJSON(issue.comments_url);
+        if (!Array.isArray(comments)) return null;
+        for (const c of comments) {
+          const m = c.body?.match(/Misaka(\d+)/);
+          if (m) return { issue, nodeNum: parseInt(m[1]) };
+        }
+      } catch(e) {}
+      return null;
+    });
+
+    const results = (await Promise.allSettled(nodeFetches))
+      .filter(r => r.status === 'fulfilled' && r.value)
+      .map(r => r.value);
+
+    // Filter test nodes, don't dedup by user
+    const registrations = results
+      .filter(r => !TEST_NODES.has(r.nodeNum))
+      .map(r => r.issue);
+
+    if (registrations.length === 0) {
+      list.innerHTML = '<div class="loading-item">暂无注册记录</div>';
+      return;
     }
 
-    document.getElementById("recent-count").textContent = `(${uniqueIssues.length})`;
+    // Sort newest first
+    registrations.sort((a, b) => b.created_at.localeCompare(a.created_at));
 
-    list.innerHTML = uniqueIssues.map((issue, idx) => {
-      const nth = uniqueIssues.length - idx;
-      const number = 10000 + nth;
+    document.getElementById("recent-count").textContent = `(${registrations.length})`;
+
+    list.innerHTML = registrations.map((issue, idx) => {
+      const nth = registrations.length - idx;
+      const result = results.find(r => r.issue.number === issue.number);
+      const number = result ? result.nodeNum : (10000 + nth);
       const date = new Date(issue.created_at).toISOString().slice(0, 10);
       const avatarSrc = AVATAR_URL(number);
       const scarfColor = SCARF_COLOR(nth);
@@ -1140,15 +1194,21 @@ async function loadActiveNodes() {
     list.style.display = "";
     list.innerHTML = nodeMap.slice(0, 10).map(n => {
       const statusIcon = n.isActive ? '🟢' : '⚪';
-      const statusText = n.isActive ? t('activeWithin') : t('activeNone');
-      const timeAgo = n.lastActive ? getTimeAgo(new Date(n.lastActive)) : t('noReport');
+      let metaText = '';
+      if (n.isActive) {
+        metaText = t('activeNow');
+      } else {
+        const timeAgo = n.lastActive ? getTimeAgo(new Date(n.lastActive)) : t('noReport');
+        metaText = `${t('lastSeen')} ${timeAgo}`;
+      }
+      if (n.usageCount > 0) metaText += ` · ${n.usageCount} ${t('usageReports')}`;
 
       return `
         <div class="active-item">
           <div class="active-status">${statusIcon}</div>
           <div class="active-info">
             <div class="active-name">Misaka${n.number}</div>
-            <div class="active-meta">${statusText} · ${timeAgo}${n.usageCount > 0 ? ` · ${n.usageCount} reports` : ''}</div>
+            <div class="active-meta">${metaText}</div>
           </div>
         </div>
       `;
@@ -1243,11 +1303,39 @@ async function loadContributors() {
       const total = data.count;
       const score = data.count * 2 + data.lessons.length;
       let level, levelClass;
-      if (score === 0)      { level = t('lv0'); levelClass = 'contrib-badge-none'; }
-      else if (score < 5)   { level = t('lv1'); levelClass = 'contrib-badge-bronze'; }
-      else if (score < 10)  { level = t('lv2'); levelClass = 'contrib-badge-silver'; }
-      else if (score < 20)  { level = t('lv3'); levelClass = 'contrib-badge-gold'; }
-      else                  { level = t('lv4'); levelClass = 'contrib-badge-platinum'; }
+      const LV_THRESHOLDS = [0, 1, 5, 12, 25, 40, 60];
+      let lvl = 0;
+      for (let i = LV_THRESHOLDS.length - 1; i >= 0; i--) {
+        if (score >= LV_THRESHOLDS[i]) { lvl = i; break; }
+      }
+      if (lvl === 0)      { level = t('lv0'); levelClass = 'contrib-badge-none'; }
+      else if (lvl === 1) { level = t('lv1'); levelClass = 'contrib-badge-bronze'; }
+      else if (lvl === 2) { level = t('lv2'); levelClass = 'contrib-badge-silver'; }
+      else if (lvl === 3) { level = t('lv3'); levelClass = 'contrib-badge-gold'; }
+      else if (lvl === 4) { level = t('lv4'); levelClass = 'contrib-badge-platinum'; }
+      else if (lvl === 5) { level = t('lv5'); levelClass = 'contrib-badge-platinum'; }
+      else                { level = t('lv6'); levelClass = 'contrib-badge-platinum'; }
+
+      // XP bar to next level
+      let xpBar = '';
+      if (lvl < 6) {
+        const curThreshold = LV_THRESHOLDS[lvl];
+        const nextThreshold = LV_THRESHOLDS[lvl + 1];
+        const progress = (score - curThreshold) / (nextThreshold - curThreshold);
+        const pct = Math.min(100, Math.round(progress * 100));
+        const xpNeeded = nextThreshold - score;
+        const fillColor = levelClass === 'contrib-badge-bronze' ? '#e39400'
+          : levelClass === 'contrib-badge-silver' ? '#a3adbc'
+          : levelClass === 'contrib-badge-gold' ? '#f0c640'
+          : levelClass === 'contrib-badge-platinum' ? '#58a6ff'
+          : '#636d7b';
+        xpBar = `<div class="contrib-xp">
+          <div class="contrib-xp-track"><div class="contrib-xp-fill" style="width:${pct}%;background:${fillColor}"></div></div>
+          <div class="contrib-xp-text">${xpNeeded} XP</div>
+        </div>`;
+      } else {
+        xpBar = `<div class="contrib-xp"><div class="contrib-xp-text" style="color:#f0c640;">★ MAX</div></div>`;
+      }
 
       const lessonItems = data.lessons.slice(0, 3).map(l => {
         if (l.exists) {
@@ -1257,7 +1345,7 @@ async function loadContributors() {
       }).join('');
 
       const details = lessonItems ? `<div class="contrib-lessons">${lessonItems}</div>` : '';
-      const reportLabel = LANG === 'en' ? 'reports' : '条使用报告';
+      const reportLabel = LANG === 'en' ? 'contributions' : '次贡献';
 
       return `
         <div class="contrib-item">
@@ -1266,6 +1354,7 @@ async function loadContributors() {
           <div class="contrib-info">
             <div class="contrib-name">${node}</div>
             <div class="contrib-detail">${total} ${reportLabel}</div>
+            ${xpBar}
             ${details}
           </div>
         </div>
