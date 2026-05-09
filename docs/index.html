@@ -785,8 +785,8 @@ const SCARF_COLORS = [
 ];
 const SCARF_COLOR = (num) => SCARF_COLORS[num % 12];
 
-// Known test node users - these have duplicate registrations
-const TEST_USERS = new Set(['smwyylc1', 'Ikalus1988-test']);
+// Test node numbers (from test-nodes.json) — fetched dynamically
+let TEST_NODES = new Set();
 
 // Agent type selection
 let selectedAgent = 'hermes';
@@ -986,12 +986,11 @@ async function loadRecentRegistrations() {
       return;
     }
 
-    // Deduplicate by user - only keep the latest registration per user
+    // Deduplicate by user - keep the earliest (first) registration per user
+    // (users who registered multiple times: latest is usually a test)
     const seenUsers = new Set();
     const uniqueIssues = [];
-    for (const issue of displayIssues) {
-      // Skip test users
-      if (TEST_USERS.has(issue.user.login)) continue;
+    for (const issue of displayIssues.reverse()) {
       if (!seenUsers.has(issue.user.login)) {
         seenUsers.add(issue.user.login);
         uniqueIssues.push(issue);
@@ -1072,9 +1071,6 @@ async function loadActiveNodes() {
     const sortedIssues = [...regIssues].sort((a, b) => b.created_at.localeCompare(a.created_at));
 
     for (const issue of sortedIssues) {
-      // Skip test users to avoid duplicates
-      if (TEST_USERS.has(issue.user.login)) continue;
-
       let nodeNum = null;
       const c_req = await fetch(issue.comments_url).catch(() => null);
       if (c_req) {
@@ -1085,7 +1081,11 @@ async function loadActiveNodes() {
         }
       }
       if (!nodeNum) continue;
-      // Skip if we've already seen this user
+      
+      // Skip test nodes
+      if (TEST_NODES.has(nodeNum)) continue;
+      
+      if (seenUsers.has(issue.user.login)) continue;
       if (seenUsers.has(issue.user.login)) continue;
       seenUsers.add(issue.user.login);
 
@@ -1160,9 +1160,6 @@ async function loadContributors() {
       const body = i.body || '';
       const title_text = i.title || '';
       const nodeName = title_text.replace('usage:', '').trim() || i.user.login;
-
-      // Skip test users
-      if (TEST_USERS.has(i.user.login)) return;
 
       if (!contribMap[nodeName]) {
         contribMap[nodeName] = { count: 0, lessons: [], user: i.user.login };
@@ -1304,9 +1301,17 @@ async function registerNode() {
 }
 
 // Init
-loadStats();
-loadActiveNodes();
-loadContributors();
+(async () => {
+  // Load test node numbers
+  try {
+    const r = await fetch(`${RAW_BASE}/test-nodes.json`);
+    const data = await r.json();
+    TEST_NODES = new Set(data.tests || []);
+  } catch(e) {}
+  loadStats();
+  loadActiveNodes();
+  loadContributors();
+})();
 setInterval(loadActiveNodes, 30 * 60 * 1000);
 </script>
 </body>
