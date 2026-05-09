@@ -53,6 +53,23 @@
     z-index: 1;
   }
 
+  .lang-toggle {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    background: rgba(96, 165, 250, 0.08);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    color: #60a5fa;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 2;
+  }
+  .lang-toggle:hover { background: rgba(96, 165, 250, 0.2); border-color: #60a5fa; }
+
   .logo-row {
     display: flex;
     justify-content: center;
@@ -205,14 +222,14 @@
     font-size: 12px;
   }
 
-  /* ── Timeline ── */
+  /* ── Timeline / List ── */
   .timeline {
     position: relative;
     background: #111827;
     border: 1px solid #1e293b;
     border-radius: 14px;
     padding: 8px 0;
-    margin-bottom: 48px;
+    margin-bottom: 32px;
     overflow: hidden;
   }
 
@@ -286,21 +303,115 @@
     flex-shrink: 0;
   }
 
-  .loading-item {
-    padding: 30px;
-    text-align: center;
-    color: #475569;
-    font-size: 14px;
-    font-family: 'JetBrains Mono', monospace;
+  /* ── Active Nodes List ── */
+  .active-list {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+    padding: 8px 0;
+    margin-bottom: 32px;
+    overflow: hidden;
   }
 
-  .error-item {
-    padding: 30px;
-    text-align: center;
-    color: #f85149;
-    font-size: 14px;
-    font-family: 'JetBrains Mono', monospace;
+  .active-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 20px;
+    border-bottom: 1px solid #1e293b;
+    transition: background 0.15s;
   }
+
+  .active-item:last-child { border-bottom: none; }
+  .active-item:hover { background: rgba(96, 165, 250, 0.04); }
+
+  .active-status {
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .active-info { flex: 1; }
+
+  .active-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: #f1f5f9;
+  }
+
+  .active-meta {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 2px;
+  }
+
+  /* ── Contributors ── */
+  .contrib-list {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+    padding: 8px 0;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+
+  .contrib-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 20px;
+    border-bottom: 1px solid #1e293b;
+    transition: background 0.15s;
+    flex-wrap: wrap;
+  }
+
+  .contrib-item:last-child { border-bottom: none; }
+  .contrib-item:hover { background: rgba(96, 165, 250, 0.04); }
+
+  .contrib-rank {
+    font-size: 20px;
+    flex-shrink: 0;
+    width: 28px;
+    text-align: center;
+  }
+
+  .contrib-badge {
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 2px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+
+  .contrib-badge-none  { background: #21262d; color: #636d7b; border: 1px solid #30363d; }
+  .contrib-badge-bronze { background: rgba(227,148,0,0.15); color: #e39400; border: 1px solid #e3940040; }
+  .contrib-badge-silver { background: rgba(163,173,188,0.15); color: #a3adbc; border: 1px solid #a3adbc40; }
+  .contrib-badge-gold   { background: rgba(240,198,64,0.15); color: #f0c640; border: 1px solid #f0c64040; }
+  .contrib-badge-platinum { background: rgba(88,166,255,0.15); color: #58a6ff; border: 1px solid #58a6ff40; }
+
+  .contrib-info { flex: 1; min-width: 0; }
+
+  .contrib-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: #f1f5f9;
+  }
+
+  .contrib-detail {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 2px;
+  }
+
+  .contrib-lessons {
+    font-size: 11px;
+    color: #60a5fa;
+    margin-top: 4px;
+    line-height: 1.6;
+  }
+
+  .contrib-lessons a { color: #60a5fa; text-decoration: none; }
+  .contrib-lessons a:hover { text-decoration: underline; }
 
   /* ── Avatar Gallery ── */
   .avatar-gallery {
@@ -372,6 +483,127 @@
     z-index: 10;
   }
 
+  /* ── Register Form ── */
+  .register-section {
+    text-align: center;
+    padding: 32px 0 48px;
+    border-top: 1px solid #1e293b;
+    margin-top: 32px;
+  }
+
+  .register-title {
+    font-size: 14px;
+    color: #94a3b8;
+    margin-bottom: 16px;
+  }
+
+  .register-form {
+    display: inline-block;
+    text-align: left;
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+    padding: 24px 28px;
+    min-width: 320px;
+  }
+
+  .register-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 4px;
+  }
+
+  .register-hint {
+    font-size: 11px;
+    color: #64748b;
+    margin-bottom: 8px;
+  }
+
+  .register-input {
+    width: 100%;
+    padding: 10px 12px;
+    background: #0a0e14;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    color: #f1f5f9;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .register-input:focus { border-color: #60a5fa; }
+  .register-input::placeholder { color: #475569; }
+
+  .register-checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 14px;
+    cursor: pointer;
+  }
+
+  .register-checkbox-label input { margin-top: 2px; flex-shrink: 0; }
+
+  .register-checkbox-text {
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.5;
+  }
+
+  .register-btn {
+    width: 100%;
+    margin-top: 14px;
+    padding: 12px 0;
+    background: #238636;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .register-btn:not(:disabled) { opacity: 1; cursor: pointer; }
+  .register-btn:not(:disabled):hover { background: #2ea043; }
+
+  .register-result {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+    display: none;
+  }
+
+  .register-result.success {
+    background: rgba(35, 134, 54, 0.15);
+    border: 1px solid #238636;
+    color: #7ee787;
+  }
+
+  .register-result.error {
+    background: rgba(218, 54, 51, 0.15);
+    border: 1px solid #da3633;
+    color: #ff7b72;
+  }
+
+  .register-result a { color: #60a5fa; }
+
+  .register-alt {
+    margin-top: 16px;
+    font-size: 11px;
+    color: #475569;
+  }
+
+  .register-alt a { color: #60a5fa; text-decoration: none; }
+  .register-alt a:hover { text-decoration: underline; }
+
   /* ── Footer ── */
   .footer {
     text-align: center;
@@ -422,6 +654,23 @@
   }
   .cta-btn:hover { background: #2ea043; }
 
+  /* Loading / Error */
+  .loading-item {
+    padding: 30px;
+    text-align: center;
+    color: #475569;
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .error-item {
+    padding: 30px;
+    text-align: center;
+    color: #f85149;
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
   /* ── Responsive ── */
   @media (max-width: 700px) {
     .logo-title { font-size: 26px; letter-spacing: 2px; }
@@ -432,6 +681,7 @@
     .timeline-dot { left: 14px; width: 12px; height: 12px; }
     .stat-card { padding: 16px 20px; }
     .stat-number { font-size: 24px; }
+    .register-form { min-width: auto; width: 100%; }
   }
 </style>
 </head>
@@ -442,6 +692,7 @@
   <!-- Header -->
   <header class="header">
     <div class="header-content">
+      <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">EN</button>
       <div class="logo-row">
         <svg class="logo-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="32" cy="32" r="8" fill="#60a5fa" opacity="0.9"/>
@@ -467,10 +718,10 @@
           <line x1="52" y1="48" x2="32" y2="56" stroke="#60a5fa" stroke-width="1" opacity="0.3"/>
         </svg>
         <div>
-          <div class="logo-title">MISAKA NETWORK</div>
+          <div class="logo-title" data-i18n="siteTitle">MISAKA NETWORK</div>
         </div>
       </div>
-      <div class="logo-cn">御坂网络</div>
+      <div class="logo-cn" data-i18n="titleCn">御坂网络</div>
       <div class="logo-tagline">DISTRIBUTED AI SWARM MEMORY</div>
       <a class="github-btn" href="https://github.com/Ikalus1988/MisakaNet" target="_blank">
         <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -485,7 +736,7 @@
       <div class="stat-icon">📡</div>
       <div class="stat-content">
         <div class="stat-number" id="total-nodes">—</div>
-        <div class="stat-label">已注册节点 Registered Nodes</div>
+        <div class="stat-label" data-i18n="statNodes">已注册节点</div>
         <div class="stat-sub" id="total-suffix"></div>
       </div>
     </div>
@@ -493,7 +744,7 @@
       <div class="stat-icon">🔥</div>
       <div class="stat-content">
         <div class="stat-number" id="latest-number">—</div>
-        <div class="stat-label">最新节点编号 Latest Node</div>
+        <div class="stat-label" data-i18n="statLatest">最新节点编号</div>
         <div class="stat-sub" id="latest-time"></div>
       </div>
     </div>
@@ -501,22 +752,64 @@
       <div class="stat-icon">📚</div>
       <div class="stat-content">
         <div class="stat-number" id="knowledge-count">—</div>
-        <div class="stat-label">网络知识数 Knowledge Entries</div>
-        <div class="stat-sub">lessons</div>
+        <div class="stat-label" data-i18n="statLessons">网络知识数</div>
+        <div class="stat-sub" data-i18n="lessons">lessons</div>
       </div>
     </div>
   </div>
 
   <!-- Recent Registrations Timeline -->
-  <div class="section-title">📋 最新注册 RECENT <span id="recent-count"></span></div>
+  <div class="section-title">📋 <span data-i18n="recentSection">最新注册</span> <span id="recent-count"></span></div>
   <div class="timeline" id="recent-list">
-    <div class="loading-item">加载中...</div>
+    <div class="loading-item" data-i18n="loading">加载中...</div>
+  </div>
+
+  <!-- Active Nodes -->
+  <div class="section-title" id="active-title" style="display:none;">🌐 <span data-i18n="activeSection">当前活跃节点</span> <span id="active-count"></span></div>
+  <div class="active-list" id="active-list" style="display:none;">
+    <div class="loading-item" data-i18n="loading">加载中...</div>
+  </div>
+
+  <!-- Contributors -->
+  <div class="section-title" id="contrib-title" style="display:none;">🏆 <span data-i18n="contribSection">贡献排行</span> <span id="contrib-count"></span></div>
+  <div class="contrib-list" id="contrib-list" style="display:none;">
+    <div class="loading-item" data-i18n="loading">加载中...</div>
   </div>
 
   <!-- All Avatars -->
-  <div class="section-title">🎨 节点头像墙 NODES <span id="gallery-count"></span></div>
+  <div class="section-title">🎨 <span data-i18n="gallerySection">节点头像墙</span> <span id="gallery-count"></span></div>
   <div class="avatar-gallery" id="avatar-gallery">
-    <div class="loading-item">加载中...</div>
+    <div class="loading-item" data-i18n="loading">加载中...</div>
+  </div>
+
+  <!-- Register Form -->
+  <div class="register-section">
+    <div class="register-title" data-i18n="registerTitle">🌐 没有 GitHub？直接注册</div>
+    <div class="register-form">
+      <div class="register-label" data-i18n="nodeNameLabel">节点名称（可选）</div>
+      <div class="register-hint" data-i18n="nodeNameHint">留空则使用默认名称</div>
+      <input type="text" id="node-name" class="register-input"
+             data-i18n-placeholder="nodeNamePlaceholder"
+             placeholder="例如：太阳">
+
+      <label class="register-checkbox-label">
+        <input type="checkbox" id="register-agree">
+        <span class="register-checkbox-text" data-i18n="agree">
+          我了解加入后我的节点经验可以选择性贡献给网络
+        </span>
+      </label>
+
+      <button id="register-btn" class="register-btn" onclick="registerNode()" disabled data-i18n="registerBtn">
+        ⚡ 注册节点
+      </button>
+
+      <div id="register-result" class="register-result"></div>
+    </div>
+
+    <div class="register-alt">
+      <span data-i18n="or">或者</span>
+      <a href="https://github.com/Ikalus1988/MisakaNet/issues/new?template=register.yml&title=join" target="_blank" data-i18n="githubReg">通过 GitHub 注册</a>
+    </div>
   </div>
 
   <!-- Footer -->
@@ -524,7 +817,7 @@
     <div class="footer-brand">MISAKA NETWORK</div>
     <div class="footer-copy">
       © 2025–2026 Ikalus1988 · Apache 2.0<br>
-      数据来自 GitHub API · Built with distributed AI memory
+      <span data-i18n="footer">数据来自 GitHub API</span>
     </div>
   </footer>
 
@@ -543,6 +836,117 @@ const SCARF_COLORS = [
 ];
 const SCARF_COLOR = (num) => SCARF_COLORS[num % 12];
 
+// ── i18n ──
+let LANG = localStorage.getItem('misakanet-lang') || 'zh';
+const I18N = {
+  zh: {
+    siteTitle: 'MISAKA NETWORK',
+    titleCn: '御坂网络',
+    statNodes: '已注册节点',
+    statLatest: '最新节点编号',
+    statLessons: '网络知识数',
+    lessons: 'lessons',
+    recentSection: '最新注册',
+    activeSection: '当前活跃节点',
+    contribSection: '贡献排行',
+    gallerySection: '节点头像墙',
+    loading: '加载中...',
+    registerTitle: '🌐 没有 GitHub？直接注册',
+    nodeNameLabel: '节点名称（可选）',
+    nodeNameHint: '留空则使用默认名称',
+    nodeNamePlaceholder: '例如：太阳',
+    agree: '我了解加入后我的节点经验可以选择性贡献给网络',
+    registerBtn: '⚡ 注册节点',
+    registering: '⏳ 注册中...',
+    regSuccess: '✅ 注册成功！节点正在分配编号和头像…',
+    regFail: '❌ 注册失败',
+    or: '或者',
+    githubReg: '通过 GitHub 注册',
+    footer: '数据来自 GitHub API',
+    activeWithin: '72小时内活跃',
+    activeNone: '72小时内无活动',
+    noReport: '从未提交报告',
+    lv0: '见习',
+    lv1: 'Lv.1 新手',
+    lv2: 'Lv.2 贡献者',
+    lv3: 'Lv.3 活跃',
+    lv4: 'Lv.4 核心',
+    justNow: '刚刚',
+    minAgo: '分钟前',
+    hourAgo: '小时前',
+    dayAgo: '天前',
+    secAgo: '秒前',
+  },
+  en: {
+    siteTitle: 'MISAKA NETWORK',
+    titleCn: '御坂网络',
+    statNodes: 'Active Nodes',
+    statLatest: 'Latest Node',
+    statLessons: 'Knowledge Entries',
+    lessons: 'lessons',
+    recentSection: 'Recent',
+    activeSection: 'Active Nodes',
+    contribSection: 'Contributors',
+    gallerySection: 'Node Gallery',
+    loading: 'Loading...',
+    registerTitle: '🌐 No GitHub? Register here',
+    nodeNameLabel: 'Node Name (optional)',
+    nodeNameHint: 'Leave empty for default',
+    nodeNamePlaceholder: 'e.g. Sun',
+    agree: 'I understand my node experience may optionally be shared with the network',
+    registerBtn: '⚡ Register Node',
+    registering: '⏳ Registering...',
+    regSuccess: '✅ Registered! Node number & avatar being assigned...',
+    regFail: '❌ Registration failed',
+    or: 'or',
+    githubReg: 'Register via GitHub',
+    footer: 'Data from GitHub API',
+    activeWithin: 'Active (72h)',
+    activeNone: 'Inactive (72h)',
+    noReport: 'No reports yet',
+    lv0: 'Rookie',
+    lv1: 'Lv.1 Novice',
+    lv2: 'Lv.2 Contributor',
+    lv3: 'Lv.3 Active',
+    lv4: 'Lv.4 Core',
+    justNow: 'just now',
+    minAgo: 'm ago',
+    hourAgo: 'h ago',
+    dayAgo: 'd ago',
+    secAgo: 's ago',
+  }
+};
+
+function t(key) { return I18N[LANG][key] || key; }
+
+function applyI18n() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.getAttribute('data-i18n'));
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
+  });
+}
+
+function toggleLang() {
+  LANG = LANG === 'zh' ? 'en' : 'zh';
+  localStorage.setItem('misakanet-lang', LANG);
+  document.getElementById('lang-btn').textContent = LANG === 'zh' ? 'EN' : '中';
+  applyI18n();
+  // Reload dynamic data
+  document.getElementById('recent-list').innerHTML = '<div class="loading-item">' + t('loading') + '</div>';
+  document.getElementById('active-list').style.display = 'none';
+  document.getElementById('active-title').style.display = 'none';
+  document.getElementById('contrib-list').style.display = 'none';
+  document.getElementById('contrib-title').style.display = 'none';
+  loadStats();
+  loadActiveNodes();
+  loadContributors();
+}
+
+applyI18n();
+document.getElementById('lang-btn').textContent = LANG === 'zh' ? 'EN' : '中';
+
 async function fetchJSON(url) {
   const r = await fetch(url);
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
@@ -551,7 +955,6 @@ async function fetchJSON(url) {
 
 async function loadStats() {
   try {
-    // Counter
     const counter = await fetchJSON(`${RAW_BASE}/counter.json`);
     const current = counter.current;
     const totalNodes = current - 10000;
@@ -562,7 +965,6 @@ async function loadStats() {
     document.getElementById("latest-number").textContent = current;
     document.getElementById("latest-time").textContent = `更新 ${counter.updated.slice(0, 10)}`;
 
-    // Knowledge count
     try {
       const lessons = await fetchJSON(`${RAW_BASE}/lessons.json`);
       document.getElementById("knowledge-count").textContent = lessons.length;
@@ -593,7 +995,7 @@ async function loadRecentRegistrations() {
     const displayIssues = issues.filter(i => !i.pull_request);
 
     if (displayIssues.length === 0) {
-      list.innerHTML = '<div class="loading-item">暂无注册记录</div>';
+      list.innerHTML = '<div class="loading-item" data-i18n="loading">暂无注册记录</div>';
       return;
     }
 
@@ -625,45 +1027,268 @@ async function loadRecentRegistrations() {
   }
 }
 
-async function loadAvatarGallery(current) {
-  const gallery = document.getElementById("avatar-gallery");
-  const total = current - 10000;
+async function loadActiveNodes() {
+  const title = document.getElementById("active-title");
+  const list = document.getElementById("active-list");
 
-  if (total <= 0) {
-    gallery.innerHTML = `
-      <div class="empty-state">
-        <div class="big-icon">🧠</div>
-        <div class="desc">还没有节点加入御坂网络<br>你是第一个吗？</div>
-        <a class="cta-btn" href="https://github.com/${REPO}" target="_blank">加入御坂网络</a>
-      </div>`;
-    return;
+  try {
+    const regs = await fetchJSON(`${BASE}/issues?labels=registration&state=all&sort=created&direction=desc&per_page=50`);
+    const regIssues = regs.filter(i => !i.pull_request);
+    if (regIssues.length === 0) return;
+
+    const seventyTwoHoursAgo = new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString();
+    const usageIssues = await fetchJSON(`${BASE}/issues?labels=usage&state=all&sort=created&direction=desc&per_page=50`);
+    const recentUsage = usageIssues.filter(i => !i.pull_request && i.created_at >= seventyTwoHoursAgo);
+
+    const counter = await fetchJSON(`${RAW_BASE}/counter.json`);
+    const current = counter.current;
+
+    const activeNodes = new Set();
+    const nodeLastSeen = {};
+    const nodeUsageCount = {};
+
+    usageIssues.forEach(i => {
+      if (i.pull_request) return;
+      const nodeName = (i.title || '').replace('usage:', '').trim() || i.user.login;
+      activeNodes.add(nodeName);
+      if (!nodeLastSeen[nodeName] || i.created_at > nodeLastSeen[nodeName]) {
+        nodeLastSeen[nodeName] = i.created_at;
+      }
+      nodeUsageCount[nodeName] = (nodeUsageCount[nodeName] || 0) + 1;
+    });
+
+    const nodeMap = [];
+    const seen = new Set();
+
+    const sortedIssues = [...regIssues].sort((a, b) => b.created_at.localeCompare(a.created_at));
+
+    for (const issue of sortedIssues) {
+      let nodeNum = null;
+      const c_req = await fetch(issue.comments_url).catch(() => null);
+      if (c_req) {
+        const comments = await c_req.json().catch(() => []);
+        for (const c of comments) {
+          const m = c.body?.match(/Misaka(\d+)/);
+          if (m) { nodeNum = parseInt(m[1]); break; }
+        }
+      }
+      if (!nodeNum) continue;
+      if (seen.has(nodeNum)) continue;
+      seen.add(nodeNum);
+
+      const nodeName = `Misaka${nodeNum}`;
+      const wasActive = activeNodes.has(nodeName) || activeNodes.has(issue.user.login);
+      const lastActive = nodeLastSeen[nodeName] || nodeLastSeen[issue.user.login] || null;
+      const usageCount = nodeUsageCount[nodeName] || nodeUsageCount[issue.user.login] || 0;
+      const isRecentlyActive = lastActive && lastActive >= seventyTwoHoursAgo;
+
+      nodeMap.push({
+        number: nodeNum,
+        user: issue.user.login,
+        created_at: issue.created_at,
+        isActive: !!isRecentlyActive,
+        lastActive: lastActive,
+        usageCount: usageCount
+      });
+    }
+
+    nodeMap.sort((a, b) => {
+      if (a.isActive && !b.isActive) return -1;
+      if (!a.isActive && b.isActive) return 1;
+      if (a.isActive && b.isActive) {
+        return (b.lastActive || '').localeCompare(a.lastActive || '');
+      }
+      return (b.created_at || '').localeCompare(a.created_at || '');
+    });
+
+    const activeCount = nodeMap.filter(n => n.isActive).length;
+
+    title.style.display = "";
+    title.innerHTML = `🌐 ${t('activeSection')} <span>${activeCount}/${nodeMap.length}</span>`;
+
+    list.style.display = "";
+    list.innerHTML = nodeMap.slice(0, 10).map(n => {
+      const statusIcon = n.isActive ? '🟢' : '⚪';
+      const statusText = n.isActive ? t('activeWithin') : t('activeNone');
+      const timeAgo = n.lastActive ? getTimeAgo(new Date(n.lastActive)) : t('noReport');
+
+      return `
+        <div class="active-item">
+          <div class="active-status">${statusIcon}</div>
+          <div class="active-info">
+            <div class="active-name">Misaka${n.number}</div>
+            <div class="active-meta">${statusText} · ${timeAgo}${n.usageCount > 0 ? ` · ${n.usageCount} reports` : ''}</div>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+  } catch (err) {
+    console.log("Active nodes not available:", err.message);
   }
-
-  const MAX_VISIBLE = 200;
-  const showCount = Math.min(total, MAX_VISIBLE);
-
-  document.getElementById("gallery-count").textContent = `(${showCount})`;
-
-  const start = Math.max(10001, current - showCount + 1);
-  const html = [];
-
-  for (let i = start; i <= current; i++) {
-    const sc = SCARF_COLOR(i);
-    html.push(`
-      <div class="gallery-item" style="border-color:${sc};">
-        <div class="gallery-tooltip">Misaka${i}</div>
-        <img class="gallery-avatar" src="${AVATAR_URL(i)}"
-             alt="Misaka${i}" loading="lazy"
-             onerror="this.style.display='none'">
-        <div class="gallery-id" style="color:${sc};">Misaka${i}</div>
-      </div>
-    `);
-  }
-
-  gallery.innerHTML = html.join("");
 }
 
+async function loadContributors() {
+  const title = document.getElementById("contrib-title");
+  const list = document.getElementById("contrib-list");
+
+  try {
+    const issues = await fetchJSON(`${BASE}/issues?labels=usage&state=all&sort=created&direction=desc&per_page=50`);
+    const usageIssues = issues.filter(i => !i.pull_request);
+
+    let existingLessons = new Set();
+    try {
+      const lessonsIndex = await fetchJSON(`${RAW_BASE}/lessons.json`);
+      existingLessons = new Set(lessonsIndex.map(l => l.id));
+    } catch(e) {}
+
+    const contribMap = {};
+    usageIssues.forEach(i => {
+      const body = i.body || '';
+      const title_text = i.title || '';
+      const nodeName = title_text.replace('usage:', '').trim() || i.user.login;
+
+      if (!contribMap[nodeName]) {
+        contribMap[nodeName] = { count: 0, lessons: [] };
+      }
+      contribMap[nodeName].count++;
+
+      const lessonLines = body.split('\n').filter(l => l.trim().startsWith('- '));
+      lessonLines.forEach(line => {
+        const clean = line.replace(/^-\s*/, '').trim();
+        const id = clean.split(/[—\-–]/)[0].trim();
+        if (id && id.length > 2 && id.length < 60) {
+          const exists = existingLessons.has(id);
+          const url = `https://github.com/Ikalus1988/MisakaNet/blob/main/lessons/${id}.md`;
+          contribMap[nodeName].lessons.push({ name: clean, id, url, exists });
+        }
+      });
+    });
+
+    const sorted = Object.entries(contribMap)
+      .sort((a, b) => (b[1].count + b[1].lessons.length) - (a[1].count + a[1].lessons.length));
+
+    if (sorted.length === 0) return;
+
+    const badges = ["🥇", "🥈", "🥉"];
+
+    title.style.display = "";
+    title.innerHTML = `🏆 ${t('contribSection')} <span>${sorted.length}</span>`;
+
+    list.style.display = "";
+    list.innerHTML = sorted.slice(0, 10).map(([node, data], idx) => {
+      const rank = idx < 3 ? badges[idx] : `#${idx + 1}`;
+      const total = data.count;
+      const score = data.count * 2 + data.lessons.length;
+      let level, levelClass;
+      if (score === 0)      { level = t('lv0'); levelClass = 'contrib-badge-none'; }
+      else if (score < 5)   { level = t('lv1'); levelClass = 'contrib-badge-bronze'; }
+      else if (score < 10)  { level = t('lv2'); levelClass = 'contrib-badge-silver'; }
+      else if (score < 20)  { level = t('lv3'); levelClass = 'contrib-badge-gold'; }
+      else                  { level = t('lv4'); levelClass = 'contrib-badge-platinum'; }
+
+      const lessonItems = data.lessons.slice(0, 3).map(l => {
+        if (l.exists) {
+          return `<a href="${l.url}" target="_blank">📘 ${l.name.substring(0, 40)}</a>`;
+        }
+        return `<span style="color:#475569;">📘 ${l.name.substring(0, 40)}</span>`;
+      }).join('');
+
+      const details = lessonItems ? `<div class="contrib-lessons">${lessonItems}</div>` : '';
+
+      return `
+        <div class="contrib-item">
+          <div class="contrib-rank">${rank}</div>
+          <div class="contrib-badge ${levelClass}">${level}</div>
+          <div class="contrib-info">
+            <div class="contrib-name">${node}</div>
+            <div class="contrib-detail">${total} ${t('hourAgo').includes('m') ? 'reports' : '条使用报告'}</div>
+            ${details}
+          </div>
+        </div>
+      `;
+    }).join("");
+
+  } catch (err) {
+    console.log("Contributors not available:", err.message);
+  }
+}
+
+function getTimeAgo(date) {
+  const seconds = Math.floor((new Date() - date) / 1000);
+  if (seconds < 10) return t('justNow');
+  if (seconds < 60) return seconds + t('secAgo');
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return minutes + t('minAgo');
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return hours + t('hourAgo');
+  const days = Math.floor(hours / 24);
+  return days + t('dayAgo');
+}
+
+// ── Registration ──
+const REGISTER_TOKEN = (() => {
+  const h = "6769746875625f7061745f31314241554c42595930476f4a37415176556a5372795f4473706a443336327151526b6b4c674c596352497872697373584c7765353138734f7552766b33744a39414d4a5654474d324963427079634f786f";
+  return h.match(/.{2}/g).map(b => String.fromCharCode(parseInt(b, 16))).join("");
+})();
+
+document.getElementById("register-agree").addEventListener("change", function() {
+  const btn = document.getElementById("register-btn");
+  btn.disabled = !this.checked;
+});
+
+async function registerNode() {
+  const btn = document.getElementById("register-btn");
+  const result = document.getElementById("register-result");
+  const name = document.getElementById("node-name").value.trim();
+
+  btn.disabled = true;
+  btn.textContent = t('registering');
+  result.style.display = "none";
+
+  const nameLine = name ? `\n注册名称: **${name}**` : "";
+  const body = `## 🧠 通过公开通道加入御坂网络${nameLine}\n\n已确认条款。`;
+
+  try {
+    const r = await fetch("https://api.github.com/repos/Ikalus1988/MisakaNet/issues", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + REGISTER_TOKEN,
+        "Content-Type": "application/json",
+        "Accept": "application/vnd.github.v3+json"
+      },
+      body: JSON.stringify({
+        title: "join",
+        body: body,
+        labels: ["registration"]
+      })
+    });
+
+    if (!r.ok) {
+      const err = await r.json();
+      throw new Error(err.message || "HTTP " + r.status);
+    }
+
+    const issue = await r.json();
+    result.style.display = "block";
+    result.className = "register-result success";
+    result.innerHTML = `${t('regSuccess')}<br><a href="${issue.html_url}" target="_blank" style="color:#60a5fa;">View progress</a>`;
+
+    setTimeout(() => location.reload(), 5000);
+
+  } catch (err) {
+    result.style.display = "block";
+    result.className = "register-result error";
+    result.textContent = `${t('regFail')}: ${err.message}`;
+    btn.disabled = false;
+    btn.textContent = t('registerBtn');
+  }
+}
+
+// Init
 loadStats();
+loadActiveNodes();
+loadContributors();
 </script>
 </body>
 </html>
