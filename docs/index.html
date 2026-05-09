@@ -729,7 +729,7 @@
       <div class="register-label" data-i18n="agentTypeLabel">Agent 类型</div>
       <div class="agent-selector">
         <div class="agent-option selected" data-agent="hermes" onclick="selectAgent(this)">🤖 Hermes</div>
-        <div class="agent-option" data-agent="cc" onclick="selectAgent(this)">⚡ cc</div>
+        <div class="agent-option" data-agent="claude" onclick="selectAgent(this)">⚡ Claude</div>
         <div class="agent-option" data-agent="codex" onclick="selectAgent(this)">💻 Codex</div>
       </div>
 
@@ -1305,6 +1305,9 @@ async function registerNode() {
 
 // Init
 loadStats();
+loadActiveNodes();
+loadContributors();
+setInterval(loadActiveNodes, 30 * 60 * 1000);
 </script>
 </body>
 </html>
