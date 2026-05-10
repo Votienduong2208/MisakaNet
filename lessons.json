@@ -836,5 +836,357 @@
     "summary": "title: \"Manim Video\"",
     "url": "lessons/skill-harvest-manim-video.md",
     "updated": ""
+  },
+  {
+    "id": "model-output-fix",
+    "title": "model-output-fix",
+    "domain": "development",
+    "tags": [
+      "model"
+    ],
+    "summary": "created: 2026-05-01 08:00 UTC",
+    "url": "lessons/model-output-fix.md",
+    "updated": ""
+  },
+  {
+    "id": "permission-denied-fix",
+    "title": "permission-denied-fix",
+    "domain": "development",
+    "tags": [
+      "permission"
+    ],
+    "summary": "created: 2026-05-01 08:00 UTC",
+    "url": "lessons/permission-denied-fix.md",
+    "updated": ""
+  },
+  {
+    "id": "pip-install-failure-fix",
+    "title": "pip-install-failure-fix",
+    "domain": "development",
+    "tags": [
+      "pip"
+    ],
+    "summary": "created: 2026-05-01 08:00 UTC",
+    "url": "lessons/pip-install-failure-fix.md",
+    "updated": ""
+  },
+  {
+    "id": "chromadb-不能放在-ntfs-文件系统",
+    "title": "chromadb-不能放在-ntfs-文件系统",
+    "domain": "development",
+    "tags": [
+      "chromadb"
+    ],
+    "summary": "title: ChromaDB 不能放在 NTFS 文件系统",
+    "url": "lessons/chromadb-不能放在-ntfs-文件系统.md",
+    "updated": ""
+  },
+  {
+    "id": "wsl-需要代理配置才能访问-huggingface-和外部网络",
+    "title": "wsl-需要代理配置才能访问-huggingface-和外部网络",
+    "domain": "development",
+    "tags": [
+      "wsl"
+    ],
+    "summary": "title: WSL 需要代理配置才能访问 HuggingFace 和外部网络",
+    "url": "lessons/wsl-需要代理配置才能访问-huggingface-和外部网络.md",
+    "updated": ""
+  },
+  {
+    "id": "rag-分块参数-800-字符-100-重叠-每文件最多-100-分块",
+    "title": "rag-分块参数-800-字符-100-重叠-每文件最多-100-分块",
+    "domain": "development",
+    "tags": [
+      "rag"
+    ],
+    "summary": "title: RAG 分块参数：800 字符 + 100 重叠 + 每文件最多 100 分块",
+    "url": "lessons/rag-分块参数-800-字符-100-重叠-每文件最多-100-分块.md",
+    "updated": ""
+  },
+  {
+    "id": "rag-报警代码检索需要关键词强制召回",
+    "title": "rag-报警代码检索需要关键词强制召回",
+    "domain": "development",
+    "tags": [
+      "rag"
+    ],
+    "summary": "title: RAG 报警代码检索需要关键词强制召回",
+    "url": "lessons/rag-报警代码检索需要关键词强制召回.md",
+    "updated": ""
+  },
+  {
+    "id": "防火墙端口开放不等于内网穿透",
+    "title": "防火墙端口开放不等于内网穿透",
+    "domain": "development",
+    "tags": [
+      "防火墙端口开放不等于内网穿透"
+    ],
+    "summary": "title: 防火墙端口开放不等于内网穿透",
+    "url": "lessons/防火墙端口开放不等于内网穿透.md",
+    "updated": ""
+  },
+  {
+    "id": "tts中文编码-powerhsell传参必须用txt文件",
+    "title": "tts中文编码-powerhsell传参必须用txt文件",
+    "domain": "development",
+    "tags": [
+      "tts中文编码"
+    ],
+    "summary": "title: TTS 中文编码：PowerShell 传参必须用 .txt 文件中转",
+    "url": "lessons/tts中文编码-powerhsell传参必须用txt文件.md",
+    "updated": ""
+  },
+  {
+    "id": "企业微信机器人-长连接模式不需要-ngrok",
+    "title": "企业微信机器人-长连接模式不需要-ngrok",
+    "domain": "development",
+    "tags": [
+      "企业微信机器人"
+    ],
+    "summary": "title: 企业微信机器人：长连接模式不需要 ngrok",
+    "url": "lessons/企业微信机器人-长连接模式不需要-ngrok.md",
+    "updated": ""
+  },
+  {
+    "id": "ffmpeg音频转码-必须用libopus而非format-ogg",
+    "title": "ffmpeg音频转码-必须用libopus而非format-ogg",
+    "domain": "development",
+    "tags": [
+      "ffmpeg音频转码"
+    ],
+    "summary": "title: FFmpeg 音频转码：必须用 libopus 而非 -format ogg",
+    "url": "lessons/ffmpeg音频转码-必须用libopus而非format-ogg.md",
+    "updated": ""
+  },
+  {
+    "id": "rag建库策略-不可一次性加载全部数据",
+    "title": "rag建库策略-不可一次性加载全部数据",
+    "domain": "development",
+    "tags": [
+      "rag建库策略"
+    ],
+    "summary": "title: RAG 建库策略：不可一次性加载全部数据到显存/内存",
+    "url": "lessons/rag建库策略-不可一次性加载全部数据.md",
+    "updated": ""
+  },
+  {
+    "id": "知识库-4-质量审计流水线",
+    "title": "知识库-4-质量审计流水线",
+    "domain": "development",
+    "tags": [
+      "知识库"
+    ],
+    "summary": "title: 知识库 4σ 质量审计流水线",
+    "url": "lessons/知识库-4-质量审计流水线.md",
+    "updated": ""
+  },
+  {
+    "id": "hermes-agent-手动更新步骤-update-超时",
+    "title": "hermes-agent-手动更新步骤-update-超时",
+    "domain": "development",
+    "tags": [
+      "hermes"
+    ],
+    "summary": "title: Hermes Agent 手动更新步骤（update 超时）",
+    "url": "lessons/hermes-agent-手动更新步骤-update-超时.md",
+    "updated": ""
+  },
+  {
+    "id": "bge-embedding-模型需要降级-fallback-避免启动崩溃",
+    "title": "bge-embedding-模型需要降级-fallback-避免启动崩溃",
+    "domain": "development",
+    "tags": [
+      "bge"
+    ],
+    "summary": "title: BGE embedding 模型需要降级 fallback 避免启动崩溃",
+    "url": "lessons/bge-embedding-模型需要降级-fallback-避免启动崩溃.md",
+    "updated": ""
+  },
+  {
+    "id": "wsl-pip-install-gbk-编码导致-hub-poller-崩溃",
+    "title": "wsl-pip-install-gbk-编码导致-hub-poller-崩溃",
+    "domain": "development",
+    "tags": [
+      "wsl"
+    ],
+    "summary": "title: WSL pip install GBK 编码导致 hub_poller 崩溃",
+    "url": "lessons/wsl-pip-install-gbk-编码导致-hub-poller-崩溃.md",
+    "updated": ""
+  },
+  {
+    "id": "rag-三通道-llm-容灾方案",
+    "title": "rag-三通道-llm-容灾方案",
+    "domain": "development",
+    "tags": [
+      "rag"
+    ],
+    "summary": "title: RAG 三通道 LLM 容灾方案",
+    "url": "lessons/rag-三通道-llm-容灾方案.md",
+    "updated": ""
+  },
+  {
+    "id": "feishu文件上传-file-type-必须用opus",
+    "title": "feishu文件上传-file-type-必须用opus",
+    "domain": "development",
+    "tags": [
+      "feishu文件上传"
+    ],
+    "summary": "title: Feishu 文件上传：file_type 必须用 opus",
+    "url": "lessons/feishu文件上传-file-type-必须用opus.md",
+    "updated": ""
+  },
+  {
+    "id": "feishu文档url-必须用api返回值不要拼接",
+    "title": "feishu文档url-必须用api返回值不要拼接",
+    "domain": "development",
+    "tags": [
+      "feishu文档url"
+    ],
+    "summary": "title: Feishu 文档 URL：必须用 API 返回值，不要拼接",
+    "url": "lessons/feishu文档url-必须用api返回值不要拼接.md",
+    "updated": ""
+  },
+  {
+    "id": "wsl-terminal-underscore-corruption",
+    "title": "wsl-terminal-underscore-corruption",
+    "domain": "development",
+    "tags": [
+      "wsl"
+    ],
+    "summary": "title: WSL 终端编辑配置危险 — TTy粘贴吞下划线",
+    "url": "lessons/wsl-terminal-underscore-corruption.md",
+    "updated": ""
+  },
+  {
+    "id": "chroma-rebuild-no-checkpoint",
+    "title": "chroma-rebuild-no-checkpoint",
+    "domain": "development",
+    "tags": [
+      "chroma"
+    ],
+    "summary": "title: Chroma 建库无 Checkpoint — 进程一死全部丢失",
+    "url": "lessons/chroma-rebuild-no-checkpoint.md",
+    "updated": ""
+  },
+  {
+    "id": "ccswitch-hermes-switch",
+    "title": "ccswitch-hermes-switch",
+    "domain": "development",
+    "tags": [
+      "ccswitch"
+    ],
+    "summary": "confidence: 0.7",
+    "url": "lessons/ccswitch-hermes-switch.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-dogfood",
+    "title": "dogfood",
+    "domain": "development",
+    "tags": [
+      "dogfood"
+    ],
+    "summary": "Exploratory QA of web apps: find bugs, evidence, reports.",
+    "url": "lessons/skill-dogfood.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-edoc-pipeline-retrospective",
+    "title": "edoc-pipeline-retrospective",
+    "domain": "development",
+    "tags": [
+      "edoc"
+    ],
+    "summary": "edoc-pipeline-retrospective",
+    "url": "lessons/skill-edoc-pipeline-retrospective.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-edoc-rag",
+    "title": "edoc-rag",
+    "domain": "development",
+    "tags": [
+      "edoc"
+    ],
+    "summary": "FANUC 机器人知识库 RAG 检索 — 向量库 34,100 chunks，BGE-m3 1024维，L2 距离，支持飞书 Bot 自动调用",
+    "url": "lessons/skill-edoc-rag.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-feishu-docx",
+    "title": "feishu-docx",
+    "domain": "development",
+    "tags": [
+      "feishu"
+    ],
+    "summary": "通过 REST API（requests/curl）创建飞书云文档、写入内容块（docx API）、发送消息卡片、访问 Wiki 节点。涵盖 Bot 创建 docx、Bot 写入 Wiki 文档（跨租户权限限制）、纯文本考卷出卷等实战场景。",
+    "url": "lessons/skill-feishu-docx.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-feishu-interactive-card",
+    "title": "feishu-interactive-card",
+    "domain": "development",
+    "tags": [
+      "feishu"
+    ],
+    "summary": "飞书互动卡片发送与回调处理 — 调试 230099/200621 错误，正确构建卡片 JSON，处理按钮点击回调。",
+    "url": "lessons/skill-feishu-interactive-card.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-hermes-cli-pty-mode",
+    "title": "hermes-cli-pty-mode",
+    "domain": "development",
+    "tags": [
+      "hermes"
+    ],
+    "summary": "Hermes CLI 在非 TTY 环境下（WSL/远程/脚本）无法启动的问题诊断与解决",
+    "url": "lessons/skill-hermes-cli-pty-mode.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-mify-model-gateway",
+    "title": "mify-model-gateway",
+    "domain": "development",
+    "tags": [
+      "mify"
+    ],
+    "summary": "公司大模型网关 — Mioffice (api.llm.mioffice.cn) 网关操作指南，包括查询可用模型、切换模型、配置 DeepSeek/小米等提供商。",
+    "url": "lessons/skill-mify-model-gateway.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-openclaw-multi-instance-config",
+    "title": "openclaw-multi-instance-config",
+    "domain": "development",
+    "tags": [
+      "openclaw"
+    ],
+    "summary": "Navigate and manage multiple OpenClaw instances across WSL and Windows, with different Feishu bot credentials",
+    "url": "lessons/skill-openclaw-multi-instance-config.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-rag-audit-question-authoring",
+    "title": "rag-audit-question-authoring",
+    "domain": "development",
+    "tags": [
+      "rag"
+    ],
+    "summary": "为 RAG 知识库巡检出题的规范和质量标准。当需要生成、审核、补充巡检测试题时使用。",
+    "url": "lessons/skill-rag-audit-question-authoring.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-task-board-html-patterns",
+    "title": "task-board-html-patterns",
+    "domain": "development",
+    "tags": [
+      "task"
+    ],
+    "summary": "任务看板 HTML/CSS/JS 可复用模式 — toggle开关、竖列、inline编辑、CSS技巧",
+    "url": "lessons/skill-task-board-html-patterns.md",
+    "updated": ""
   }
 ]
