@@ -330,5 +330,511 @@
     "summary": "GitHub API 返回 401 时，本地已有凭证可能被忽略。强制查找顺序：git-credentials → netrc → gh → env → git config。",
     "url": "lessons/github-401-credential-lookup.md",
     "updated": ""
+  },
+  {
+    "id": "skill-harvest-debugging-python-bytecode-cache",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Debugging Python Bytecode Cache\"",
+    "url": "lessons/skill-harvest-debugging-python-bytecode-cache.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-python-debugpy",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Python Debugpy\"",
+    "url": "lessons/skill-harvest-python-debugpy.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-node-inspect-debugger",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Node Inspect Debugger\"",
+    "url": "lessons/skill-harvest-node-inspect-debugger.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-systematic-debugging",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Systematic Debugging\"",
+    "url": "lessons/skill-harvest-systematic-debugging.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-test-driven-development",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Test Driven Development\"",
+    "url": "lessons/skill-harvest-test-driven-development.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-ocr-and-documents",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Ocr And Documents\"",
+    "url": "lessons/skill-harvest-ocr-and-documents.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-native-claude-code-wsl",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Native Claude Code Wsl\"",
+    "url": "lessons/skill-harvest-native-claude-code-wsl.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-native-claude-code-wsl-bare-fix",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Native Claude Code Wsl Bare Fix\"",
+    "url": "lessons/skill-harvest-native-claude-code-wsl-bare-fix.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-native-claude-code-wsl-proxy-fix",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Native Claude Code Wsl Proxy Fix\"",
+    "url": "lessons/skill-harvest-native-claude-code-wsl-proxy-fix.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-native-claude-code-bootstrap-fix",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Native Claude Code Bootstrap Fix\"",
+    "url": "lessons/skill-harvest-native-claude-code-bootstrap-fix.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-claude-code-proxy-troubleshoot",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Claude Code Proxy Troubleshoot\"",
+    "url": "lessons/skill-harvest-claude-code-proxy-troubleshoot.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-requesting-code-review",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Requesting Code Review\"",
+    "url": "lessons/skill-harvest-requesting-code-review.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-self-review",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Self Review\"",
+    "url": "lessons/skill-harvest-self-review.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-self-grow-wiki-code-review",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Self Grow Wiki Code Review\"",
+    "url": "lessons/skill-harvest-self-grow-wiki-code-review.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-jupyter-live-kernel",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Jupyter Live Kernel\"",
+    "url": "lessons/skill-harvest-jupyter-live-kernel.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-outlines",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Outlines\"",
+    "url": "lessons/skill-harvest-outlines.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-knowledge-base-quality-audit",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Knowledge Base Quality Audit\"",
+    "url": "lessons/skill-harvest-knowledge-base-quality-audit.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-gradio-feedback-panel",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Gradio Feedback Panel\"",
+    "url": "lessons/skill-harvest-gradio-feedback-panel.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-edoc-rag",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Edoc Rag\"",
+    "url": "lessons/skill-harvest-edoc-rag.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-edoc-pipeline-retrospective",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Edoc Pipeline Retrospective\"",
+    "url": "lessons/skill-harvest-edoc-pipeline-retrospective.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-linear",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Linear\"",
+    "url": "lessons/skill-harvest-linear.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-himalaya",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Himalaya\"",
+    "url": "lessons/skill-harvest-himalaya.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-heartmula",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Heartmula\"",
+    "url": "lessons/skill-harvest-heartmula.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-airtable",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Airtable\"",
+    "url": "lessons/skill-harvest-airtable.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-arxiv",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Arxiv\"",
+    "url": "lessons/skill-harvest-arxiv.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-ascii-art",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Ascii Art\"",
+    "url": "lessons/skill-harvest-ascii-art.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-minecraft-modpack-server",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Minecraft Modpack Server\"",
+    "url": "lessons/skill-harvest-minecraft-modpack-server.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-ccswitch",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Ccswitch\"",
+    "url": "lessons/skill-harvest-ccswitch.md",
+    "updated": ""
+  },
+  {
+    "id": "chroma-建库无-checkpoint-进程一死全部丢失",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "chroma"
+    ],
+    "summary": "title: Chroma 建库无 Checkpoint — 进程一死全部丢失",
+    "url": "lessons/chroma-建库无-checkpoint-进程一死全部丢失.md",
+    "updated": ""
+  },
+  {
+    "id": "rag-检索中文乱码-pymupdf4llm-默认编码问题",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "rag"
+    ],
+    "summary": "title: RAG 检索中文乱码 — pymupdf4llm 默认编码问题",
+    "url": "lessons/rag-检索中文乱码-pymupdf4llm-默认编码问题.md",
+    "updated": ""
+  },
+  {
+    "id": "wsl-终端编辑配置危险-tty粘贴吞下划线",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "wsl"
+    ],
+    "summary": "title: WSL 终端编辑配置危险 — TTy粘贴吞下划线",
+    "url": "lessons/wsl-终端编辑配置危险-tty粘贴吞下划线.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-p5js",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"P5Js\"",
+    "url": "lessons/skill-harvest-p5js.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-comfyui",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Comfyui\"",
+    "url": "lessons/skill-harvest-comfyui.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-excalidraw",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Excalidraw\"",
+    "url": "lessons/skill-harvest-excalidraw.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-xurl",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Xurl\"",
+    "url": "lessons/skill-harvest-xurl.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-google-workspace",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Google Workspace\"",
+    "url": "lessons/skill-harvest-google-workspace.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-vllm",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Vllm\"",
+    "url": "lessons/skill-harvest-vllm.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-llama-cpp",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Llama Cpp\"",
+    "url": "lessons/skill-harvest-llama-cpp.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-powerpoint",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Powerpoint\"",
+    "url": "lessons/skill-harvest-powerpoint.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-pixel-art",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Pixel Art\"",
+    "url": "lessons/skill-harvest-pixel-art.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-songsee",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Songsee\"",
+    "url": "lessons/skill-harvest-songsee.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-baoyu-comic",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Baoyu Comic\"",
+    "url": "lessons/skill-harvest-baoyu-comic.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-baoyu-infographic",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Baoyu Infographic\"",
+    "url": "lessons/skill-harvest-baoyu-infographic.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-claude-design",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Claude Design\"",
+    "url": "lessons/skill-harvest-claude-design.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-humanizer",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Humanizer\"",
+    "url": "lessons/skill-harvest-humanizer.md",
+    "updated": ""
+  },
+  {
+    "id": "skill-harvest-manim-video",
+    "title": "背景",
+    "domain": "development",
+    "tags": [
+      "skill"
+    ],
+    "summary": "title: \"Manim Video\"",
+    "url": "lessons/skill-harvest-manim-video.md",
+    "updated": ""
   }
 ]
