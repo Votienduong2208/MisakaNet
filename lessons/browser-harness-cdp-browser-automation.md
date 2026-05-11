@@ -1,0 +1,66 @@
+# browser-harness — AI 直连 Chrome 的 CDP 浏览器自动化
+
+## 背景
+
+browser-harness 是 browser-use 团队的开源项目，定位是「给 AI 用的浏览器控制层」。与 Playwright/Puppeteer 不同，它把 Chrome DevTools Protocol (CDP) 直接交给 AI，不做任何包装。
+
+核心哲学来自博客文章 *The Bitter Lesson of Agent Harnesses*：不要包装 LLM 的工具，也不要包装它的工具层。给模型完整的 CDP 访问权限 + 允许它编辑自己的辅助代码，它会自己解决复杂情况。
+
+## 关键发现
+
+### 1. 安装方式
+
+从 GitHub clone 后用 uv 安装：
+```bash
+git clone https://github.com/browser-use/browser-harness ~/Developer/browser-harness
+cd ~/Developer/browser-harness
+uv venv .venv && source .venv/bin/activate
+uv pip install -e .
+```
+
+**注意**：`BrowserHarness` 类在文档示例中出现，但当前版本（0.1.0）不存在这个类。正确用法是 `browser-harness` CLI。
+
+### 2. 连接 Chrome
+
+WSL2 环境有两个选择：
+- **连接 OpenClaw 自带的 Chromium**（已在 18800 端口）：`BU_CDP_URL=http://127.0.0.1:18800`
+- **连接 Windows Chrome**（需开启 remote debugging）：`BU_CDP_URL=http://127.0.0.1:9222`
+
+OpenClaw Chromium 是 headless 的，viewport 固定 800×600，部分网站渲染受限。
+
+### 3. 反爬测试结果
+
+| 目标 | WSL2 结果 | 原因 |
+|------|-----------|------|
+| 微信文章 | ⚠️ 验证墙 | 微信内嵌人机验证 |
+| 小红书 | ⚠️ IP风险 | WSL2 出口 IP 是数据中心 IP，被识别 |
+| B站 | ✅ 正常 | 有 domain-skill |
+| GitHub | ✅ 正常 | 无反爬 |
+| 百度 | ✅ 正常 | 无反爬 |
+
+### 4. 解决方案
+
+- **profile-sync**：同步真实 Chrome cookie，绕过登录墙
+- **Browser Use Cloud**：带住宅代理的云浏览器，默认 US 代理，可选 195+ 国家
+- **Stealth Browsers**：自定义 Chromium 内核，自动绕过 DataDome/Kasada/Cloudflare
+- **CAPTCHA**：Stealth Browsers 免费自动解决 Turnstile/reCAPTCHA
+
+### 5. 适用场景
+
+✅ **完美适用：**
+- 公开页面爬取/自动化
+- GitHub 操作（PR、Issue、代码搜索）
+- 表单自动填写
+- 多标签页协同操作
+- 需要 AI 自主适应的复杂导航任务
+
+⚠️ **需额外配置：**
+- 国内 App（微信/小红书/抖音）：需要 Browser Use Cloud 住宅代理
+- 需要登录的网站：需要 profile-sync 同步 cookie
+- 高安全站点（银行等）：需要 Stealth Browsers
+
+## 文档
+
+- 项目地址：https://github.com/browser-use/browser-harness
+- 安装文档：https://github.com/browser-use/browser-harness/blob/main/install.md
+- Skill 文档：`~/skills/browser-harness-1.0.0/SKILL.md`
