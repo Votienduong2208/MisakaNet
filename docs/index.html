@@ -1385,7 +1385,7 @@ async function loadContributors() {
 
     list.style.display = "";
     list.innerHTML = sorted
-      .filter(([node, data]) => !SKIP_OWNER.has(node) && !SKIP_OWNER.has(data.user))
+      .filter(([node]) => !SKIP_OWNER.has(node))
       .slice(0, 10).map(([node, data], idx) => {
       const rank = idx < 3 ? badges[idx] : `#${idx + 1}`;
       const total = data.count;
