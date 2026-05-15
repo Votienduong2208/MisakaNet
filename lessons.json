@@ -1323,5 +1323,22 @@
     "summary": "系统性调研平台可达性，以 GitHub Issues/PR/awesome-list 为核心渠道的 AI Agent 项目宣发引流全流程指南。",
     "url": "lessons/ai-agent-project-outreach-guide.md",
     "updated": "2026-05-11"
+  },
+  {
+    "id": "safari-mcp-browser-automation",
+    "title": "Safari MCP 浏览器自动化实战经验",
+    "domain": "devops",
+    "tags": [
+      "safari-mcp",
+      "browser-automation",
+      "feishu",
+      "github-pages",
+      "dom",
+      "monaco",
+      "claude-code"
+    ],
+    "summary": "使用 Safari MCP 操作飞书文档和 GitHub Pages 的实战经验，包括 contenteditable 编辑、DOM 操作、Monaco 编辑器限制、API 限流排查等。",
+    "url": "lessons/safari-mcp-browser-automation-lessons.md",
+    "updated": ""
   }
 ]
