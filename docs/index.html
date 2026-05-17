@@ -1009,7 +1009,7 @@ const I18N = {
     regWait: '⏳ 无需审核，自动分配中（约30秒后刷新可见你的节点编号）',
     viewIssue: '查看欢迎消息（内含准入测试）',
     regFail: '❌ 注册失败',
-    publicUser: '热心市民',
+    publicUser: '新用户',
     or: '或者',
     githubReg: '通过 GitHub 注册',
     footer: '数据来自 GitHub API',
@@ -1152,6 +1152,10 @@ function toggleLang() {
   localStorage.setItem('misakanet-lang', LANG);
   document.getElementById('lang-btn').textContent = LANG === 'zh' ? 'EN' : '中';
   applyI18n();
+  // Re-render dynamic sections with new language
+  loadRecentRegistrations();
+  loadActiveNodes();
+  loadContributors();
 }
 
 applyI18n();
@@ -1272,7 +1276,12 @@ async function loadRecentRegistrations() {
 
       // Public form registration = non-GitHub user
       const isPublicReg = body.includes('通过公开通道');
-      const accountLabel = isPublicReg ? t('publicUser') : `@${issue.user.login}`;
+      let accountLabel = `@${issue.user.login}`;
+      if (isPublicReg) {
+        // Try to extract custom node name from issue body
+        const nameMatch = body.match(/注册名称[：:]\s*\*\*(.+?)\*\*/);
+        accountLabel = nameMatch ? nameMatch[1].trim() : t('publicUser');
+      }
 
       const agentTypeI18nKey = 'agent' + agentType.charAt(0).toUpperCase() + agentType.slice(1);
       const agentBadge = `<span class="agent-badge ${getAgentBadgeClass(agentType)}" data-i18n-agent="${agentTypeI18nKey}">${getAgentLabel(agentType)}</span>`;
