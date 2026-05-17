@@ -492,6 +492,15 @@
     "updated": ""
   },
   {
+    "id": "safari-mcp-browser-automation-lessons",
+    "title": "safari-mcp-browser-automation-lessons",
+    "domain": "uncategorized",
+    "tags": [],
+    "summary": "title: Safari MCP 浏览器自动化实战经验",
+    "url": "lessons/safari-mcp-browser-automation-lessons.md",
+    "updated": ""
+  },
+  {
     "id": "shared-json-needs-atomic-write",
     "title": "共享JSON状态需要原子写入",
     "domain": "devops",
