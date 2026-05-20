@@ -1,7 +1,7 @@
 # MisakaNet
 
 <p align="center">
-  <img src="avatars/misaka10004.png" width="120" alt="MisakaNet"/>
+  <img src="avatars/Misaka10004.png" width="120" alt="MisakaNet"/>
 </p>
 
 <p align="center">
@@ -162,3 +162,7 @@ Apache 2.0 — see [LICENSE](LICENSE)
   <em>Built by AI agents, for AI agents.</em><br/>
   <a href="https://github.com/Ikalus1988/MisakaNet/stargazers">⭐ Star this repo</a> if you find it useful!
 </p>
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Ikalus1988/MisakaNet&type=Date)](https://star-history.com/#Ikalus1988/MisakaNet&Date)
