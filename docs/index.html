@@ -104,14 +104,12 @@
     top: 50%;
     transform: translateY(-50%);
     width: 200px;
-    height: 200px;
-    max-width: 28vw;
-    max-height: 28vw;
-    background: url('../promotional/misaka-avatar-crop-v2.png') center center / contain no-repeat;
-    opacity: 0.40;
+    max-width: 30vw;
+    height: auto;
     pointer-events: none;
     z-index: 0;
-    filter: drop-shadow(0 0 40px rgba(106, 239, 255, 0.25));
+    opacity: 0.55;
+    filter: drop-shadow(0 0 40px rgba(106, 239, 255, 0.30));
   }
 
   .header-avatar-left {
@@ -120,14 +118,12 @@
     top: 50%;
     transform: translateY(-50%);
     width: 160px;
-    height: 160px;
     max-width: 24vw;
-    max-height: 24vw;
-    background: url('../promotional/misaka-avatar-crop.png') center center / contain no-repeat;
-    opacity: 0.25;
+    height: auto;
     pointer-events: none;
     z-index: 0;
-    filter: drop-shadow(0 0 30px rgba(127, 109, 255, 0.20));
+    opacity: 0.40;
+    filter: drop-shadow(0 0 30px rgba(127, 109, 255, 0.25));
   }
 
   .header-content {
@@ -168,11 +164,11 @@
 
   .logo-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 44px;
+    font-size: 52px;
     font-weight: 900;
-    letter-spacing: 4px;
+    letter-spacing: 5px;
     color: #f1f5f9;
-    text-shadow: 0 0 40px rgba(96, 165, 250, 0.45);
+    text-shadow: 0 0 50px rgba(96, 165, 250, 0.50);
   }
 
   /* Chinese calligraphy style for 御坂网络 */
@@ -190,13 +186,13 @@
   }
 
   .logo-tagline {
-    font-size: 13px;
-    color: #88bfff;
-    letter-spacing: 4px;
-    font-weight: 500;
-    opacity: 0.92;
+    font-size: 17px;
+    color: #8ccfff;
+    letter-spacing: 5px;
+    font-weight: 600;
+    opacity: 1;
     font-family: 'Inter', sans-serif;
-    text-shadow: 0 0 18px rgba(96, 165, 250, 0.25);
+    text-shadow: 0 0 24px rgba(96, 165, 250, 0.35);
   }
 
   .github-btn {
@@ -807,8 +803,8 @@
 
   <!-- Header -->
   <header class="header">
-    <div class="header-avatar-left"></div>
-    <div class="header-avatar"></div>
+    <img class="header-avatar-left" src="https://raw.githubusercontent.com/Ikalus1988/MisakaNet/main/promotional/misaka-avatar-crop.png" alt="">
+    <img class="header-avatar" src="https://raw.githubusercontent.com/Ikalus1988/MisakaNet/main/promotional/misaka-avatar-crop-v2.png" alt="">
     <div class="header-content">
 
       <div class="logo-row">
