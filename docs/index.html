@@ -97,7 +97,22 @@
     background-size: auto, 40px 40px, 40px 40px;
     mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 22%, rgba(0,0,0,0.55) 78%, transparent 100%);
     pointer-events: none;
-    opacity: 0.72;
+  }
+
+  .header-avatar {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 200px;
+    max-width: 30vw;
+    max-height: 30vw;
+    background: url('../promotional/misaka-avatar-crop-v2.png') center center / contain no-repeat;
+    opacity: 0.20;
+    pointer-events: none;
+    z-index: 0;
+    filter: drop-shadow(0 0 30px rgba(106, 239, 255, 0.15));
   }
 
   .header-content {
@@ -760,6 +775,7 @@
 
   /* ── Responsive ── */
   @media (max-width: 700px) {
+    .header-avatar { display: none; }
     .logo-title { font-size: 26px; letter-spacing: 2px; }
     .logo-cn { font-size: 26px; letter-spacing: 6px; }
     .timeline::before { left: 20px; }
@@ -778,6 +794,7 @@
 
   <!-- Header -->
   <header class="header">
+    <div class="header-avatar"></div>
     <div class="header-content">
 
       <div class="logo-row">
