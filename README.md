@@ -1,7 +1,7 @@
 # MisakaNet
 
 <p align="center">
-  <a href="promotional/misaka-banner-2026.svg"><img src="promotional/misaka-banner-2026.svg" width="720" alt="MisakaNet"/></a>
+  <a href="promotional/首页图.svg"><img src="promotional/首页图.svg" width="720" alt="MisakaNet"/></a>
 </p>
 
 <p align="center">
