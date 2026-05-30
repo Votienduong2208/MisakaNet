@@ -1335,7 +1335,11 @@ async function loadRecentRegistrations() {
     }).join("");
 
   } catch (err) {
-    list.innerHTML = `<div class="error-item">加载失败: ${err.message}</div>`;
+    if (err.message.includes("403")) {
+      list.innerHTML = '<div class="error-item">GitHub API 频率限制，请稍后刷新重试</div>';
+    } else {
+      list.innerHTML = `<div class="error-item">加载失败: ${err.message}</div>`;
+    }
   }
 }
 
