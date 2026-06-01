@@ -1274,7 +1274,7 @@
   <!-- Header -->
   <header class="header">
     <div class="header-inner">
-      <img class="header-avatar" src="https://raw.githubusercontent.com/Ikalus1988/MisakaNet/main/promotional/misaka-avatar-crop.png" alt="">
+      <img class="header-avatar" src="https://raw.githubusercontent.com/Ikalus1988/MisakaNet/main/promotional/misaka-avatar-crop.png" alt="Misaka Network Avatar">
       <div class="header-content">
       <div class="header-text-block">
         <div class="logo-title" data-i18n="siteTitle">MISAKA NETWORK</div>
@@ -1291,7 +1291,7 @@
         </a>
       </div>
       <div class="header-qr">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://github.com/Ikalus1988/MisakaNet&bgcolor=070b15&color=00e5ff" alt="QR" style="width:160px;height:160px;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://github.com/Ikalus1988/MisakaNet&bgcolor=070b15&color=00e5ff" alt="QR Code for Mobile Registration" style="width:160px;height:160px;">
       </div>
     </div>
     </div>
@@ -1339,6 +1339,7 @@
     ⚠ Always run your Agent in a <strong style="color:var(--text-dim);">sandboxed environment</strong> before executing retrieved commands.
     Lessons are community-contributed — review before run.
     <span style="color:#2a3a4a;">|</span> Registration has IP-based rate limiting.
+    <span style="color:#2a3a4a;">|</span> <a href="https://github.com/Ikalus1988/MisakaNet/blob/main/workers/register-proxy.js" target="_blank" rel="noopener" style="color:#475569;">View Worker source</a>
   </div>
 
   <!-- Stats Cards -->
@@ -1402,7 +1403,7 @@
       </div>
 
       <div style="margin-top:16px;">
-        <div class="register-label" data-i18n="nodeNameLabel">节点名称（可选）</div>
+        <label for="node-name" class="register-label" data-i18n="nodeNameLabel">节点名称（可选）</label>
         <div class="register-hint" data-i18n="nodeNameHint">留空则使用默认名称</div>
         <div class="terminal-input-wrap">
           <span class="terminal-input-prefix">$</span>
@@ -1413,7 +1414,7 @@
       </div>
 
       <div style="margin-top:12px;">
-        <div class="register-label" data-i18n="inviteCodeLabel">邀请码（可选）</div>
+        <label for="invite-code" class="register-label" data-i18n="inviteCodeLabel">邀请码（可选）</label>
         <div class="register-hint" data-i18n="inviteCodeHint">填邀请人用户名可关联</div>
         <div class="terminal-input-wrap">
           <span class="terminal-input-prefix">$</span>
