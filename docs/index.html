@@ -2460,8 +2460,8 @@ async function registerNode() {
     // Worker returns the issue URL directly
     const issue = { html_url: data.issue_url };
 
-    // Estimate node number (counter not yet incremented)
-    const estimatedNode = CURRENT_COUNTER + 1;
+    // Use real node number from Worker, fall back to counter estimate
+    const estimatedNode = data.node_number || (CURRENT_COUNTER + 1);
     const estimatedName = 'Misaka' + String(estimatedNode).padStart(5, '0');
 
     const entryTestSteps = LANG === 'en' ? `
