@@ -55,6 +55,15 @@ AI agents hit the same bugs across different environments. Each one independentl
 
 **MisakaNet's moat:** every new node and lesson makes the network exponentially more valuable — no server infrastructure required.
 
+> 📦 **Dependencies — core vs advanced:**
+> Core search (`python3 search_knowledge.py`) is **zero-dep** — pure Python stdlib, works in air-gapped sandboxes.
+> Advanced features require optional packages:
+> - `--semantic` → `pip install sentence-transformers` _(~2GB model)_
+> - `--score` → uses local SQLite _(stdlib, no install needed)_
+> - Hub mode → `pip install -r hub/requirements.txt`
+>
+> See [`docs/cli-reference.md`](docs/cli-reference.md) for per-flag dependency details.
+
 ---
 
 ## Quick Start
@@ -65,7 +74,7 @@ cd MisakaNet
 python3 search_knowledge.py "pip install timeout"
 ```
 
-> Zero dependencies. Pure Python stdlib. [Getting Started guide →](docs/agents/node-injection.md)
+> Core search: zero dependencies. Pure Python stdlib. [Getting Started guide →](docs/agents/node-injection.md)
 
 ### Commands at a glance
 
