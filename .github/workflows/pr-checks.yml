@@ -2,7 +2,13 @@ name: 🚨 Misaka Network Agent Auditor
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to audit'
+        required: false
+        type: string
 
 jobs:
   audit:
@@ -16,12 +22,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.pr_number != '' && format('refs/pull/{0}/head', github.event.inputs.pr_number) || github.ref }}
 
       - name: 🛑 DCO Pre-flight Gate
         id: dco
         run: |
           bad=0
-          for commit in $(git log --format='%H' origin/${{ github.base_ref }}..HEAD 2>/dev/null || git log --format='%H' HEAD~${{ github.event.pull_request.commits }}..HEAD); do
+          BASE_REF="${{ github.base_ref || 'main' }}"
+          for commit in $(git log --format='%H' "origin/${BASE_REF}..HEAD" 2>/dev/null || git log --format='%H' HEAD~${{ github.event.pull_request.commits || 5 }}..HEAD); do
             msg=$(git log --format='%B' -1 "$commit")
             if ! echo "$msg" | grep -qi 'Signed-off-by:'; then
               echo "❌ Commit $commit is missing Signed-off-by:"
@@ -52,8 +60,8 @@ jobs:
       - name: 🔍 Check PR Size
         id: prsize
         run: |
-          CHANGED=${{ github.event.pull_request.changed_files }}
-          ADDITIONS=${{ github.event.pull_request.additions }}
+          CHANGED=${{ github.event.pull_request.changed_files || 0 }}
+          ADDITIONS=${{ github.event.pull_request.additions || 0 }}
           SUSPICIOUS=false
           NOTES=""
           if [ "$CHANGED" -gt 10 ]; then
@@ -93,12 +101,19 @@ jobs:
             const dcoPassed = '${{ steps.dco.outputs.dco_passed }}' === 'true';
             const fs = require('fs');
 
+            // For workflow_dispatch, use the input PR number; for pull_request, use the event context.
+            const prNumber = '${{ github.event.inputs.pr_number }}'
+              ? parseInt('${{ github.event.inputs.pr_number }}')
+              : context.issue.number;
+
+            const commitSha = context.payload.pull_request
+              ? context.payload.pull_request.head.sha.slice(0, 7)
+              : 'manual';
+
             let dcoLine = dcoPassed
               ? '✅ **DCO PASSED** — All commits include `Signed-off-by:`.'
               : '❌ **DCO FAILED** — One or more commits missing `Signed-off-by:`.';
 
-            // Tests always run now (decoupled from DCO gate).
-            // Build report regardless of DCO status.
             let reportBody = '';
             let suiteFailed = false;
 
@@ -142,17 +157,19 @@ ${dcoLine}
 
 ${reportBody}
 
-*Triggered by: ${context.payload.pull_request.head.sha.slice(0, 7)}*`;
+*Triggered by: ${commitSha}*`;
 
-            try {
-              await github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body
-              });
-            } catch (err) {
-              console.log('Failed to post comment (403 from fork PR — non-critical):', err.message);
+            if (prNumber) {
+              try {
+                await github.rest.issues.createComment({
+                  issue_number: prNumber,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body
+                });
+              } catch (err) {
+                console.log('Failed to post comment:', err.message);
+              }
             }
 
             if (!dcoPassed || suiteFailed) {
