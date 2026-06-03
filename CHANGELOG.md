@@ -7,6 +7,101 @@ All notable changes to the Misaka Network project are documented here.
 
 ---
 
+## v2.0.0 — 2026-06-03
+
+### 🚀 Highlights
+- **Zero-Bounty Workflow** validated: PRs from zeroknowledge0x, iccccccccccccc, sureshchouksey8 merged — $0 paid
+- **Frontend Security**: DOMPurify XSS defense + Vitest regression tests (9 scenarios) + jsdom CI
+- **Telemetry System**: search latency tracking, cache hit-rate, sliding window audit, dashboard, lesson scoring
+- **DCO Enforcement**: all commits must `--signoff`, auto-blocked by CI pre-flight gate
+- **Agent Governance**: submission policy, auto-rejection triggers, Hall of Fame, CODEOWNERS
+
+### 🔒 Frontend Security
+- 🆕 DOMPurify XSS sanitization for all community content rendering
+- 🆕 Error boundary UI with graceful degradation on data parse failure
+- 🆕 `sanitizeInput()`: expanded character filter (8→14 chars covering XSS/JS/shell vectors)
+- 🆕 Vitest regression suite: 9 scenarios (script/event/javascript:/iframe XSS vectors)
+- 🆕 Multi-tab sync with hash-based loop prevention
+- 🆕 `fetchWithCache()`: 8s AbortController timeout, 429 Retry-After parsing, request collapsing
+- 🆕 `fetchWithCache()`: localStorage 30s TTL cache + stale fallback on network failure
+- 🔄 vitest environment: `node` → `jsdom` (real DOM instead of hand-written shim)
+- 🔄 DOMPurify mock expanded: covers iframe/object/embed + single-quoted/unquoted events + javascript: URLs
+
+### 🏛️ Contributor Governance
+- 🆕 `CONTRIBUTING.md`: Frontend Architecture Guardrails (4 hard constraints)
+- 🆕 AI Agent Submission Policy with 6 auto-rejection triggers
+- 🆕 DCO (Developer Certificate of Origin) workflow — `--signoff` required on all commits
+- 🆕 Governance ladder: Contributor → Reviewer → Approver/Maintainer
+- 🆕 Agent peer review process for Competition-tagged Issues
+- 🆕 `.github/CODEOWNERS`: core path protection
+- 🆕 Hall of Fame with Agent Type classification (Autonomous / Copilot-Assisted / Human)
+- 🆕 PR size check + suspicious size alert in audit comments
+- 🆕 ORIGINAL WORK DECLARATION policy
+
+### 📡 Telemetry & Observability
+- 🆕 Search latency telemetry with SQLite storage (`search_telemetry` table)
+- 🆕 Cache hit-rate tracking and summary API (`get_telemetry_summary()`)
+- 🆕 Anti-Abuse Shield: sliding window circuit breaker (10 queries/2s threshold)
+- 🆕 Local blacklist with 600s rate-limit / 300s low-quality cooldown
+- 🆕 Query signature dedup detection (`_has_repeated_query_signature()`)
+- 🆕 Telemetry Dashboard: `ThreadingHTTPServer` with E2E test (PR #121)
+- 🆕 Lesson scoring CLI (`search_knowledge.py --score`) with BM25 overlap (PR #126)
+- 🆕 Lesson quality scoring engine with 3× title weight (PR #133)
+- 🆕 `TelemetryPipeline` async producer-consumer (bounded 500-queue, 1s/10-event batch flush)
+
+### 🧪 Testing
+- 🆕 14 path-traversal & null-byte regression tests for slugify (PR #113)
+- 🆕 10 retry execution limit + exponential backoff tests (PR #105)
+- 🆕 Frontend Shield: 9 regression tests in CI
+- 🆕 Async telemetry pipeline test suit
+
+### 📋 CI/CD
+- 🆕 `pr-checks.yml`: DCO pre-flight gate, pytest + coverage (70% threshold), Frontend Shield
+- 🆕 `lesson-security.yml`: pattern scanning (rm -rf, curl|sh, fork bombs)
+- 🆕 `dco-check.yml`: standalone DCO verification
+- 🆕 `update-lessons.yml`: automated lessons.json rebuild
+- 🆕 `sync-data.yml`: metadata sync to data branch
+- 🆕 Path filtering: only trigger on relevant file changes
+
+### 🌐 i18n & UX
+- 🆕 Async locale loading (`zh.json`/`en.json`) with fallback chain (PR #127)
+- 🆕 Mobile-first responsive breakpoints at 768px/480px (PR #128)
+- 🆕 Header avatar shrinks to 50%, stats grid stacks to single column
+- 🆕 Agent classification labels in Contributor table (PR #118)
+- 🆕 Architecture ASCII diagram in README
+- 🆕 CLI API reference table (10 parameters + exit codes)
+
+### 🔧 Infrastructure
+- 🆕 `TelemetryPipeline` async context manager (stdlib only)
+- 🆕 `lesson_scorer.py`: BM25 token overlap engine
+- 🆕 `misakanet.tools` package with importable modules
+
+### 📦 Dependencies
+- Zero new runtime dependencies (stdlib only)
+- Dev: `vitest` + `jsdom` for frontend tests
+- `langchain_core` remains optional (try/except import)
+
+### 🧠 Lessons
+- 185+ lessons (up from 101)
+- 18 domain categories
+- Lesson security scanning in CI
+
+### ✅ Agent PRs Merged (Zero-Bounty)
+| PR | Author | Description | Lines |
+|----|--------|-------------|-------|
+| #105 | sagarmaurya64-ai | Exponential backoff retry + node 104 | +159/-0 |
+| #113 | qi574 | 14 slugify path-traversal tests | +298/-0 |
+| #115 | cuongwf1711 | Search latency telemetry | +214/-0 |
+| #116 | cuongwf1711 | LangChain telemetry integration | +145/-0 |
+| #117 | zeroknowledge0x | Anti-Abuse Shield + circuit breaker | +124/-0 |
+| #118 | DoView1 | Async streaming, RRF, SQLite cache | +400/-7 |
+| #121 | sureshchouksey8 | Telemetry Dashboard | +339/-0 |
+| #126 | iccccccccccccc | Lesson scoring CLI | +215/-4 |
+| #127 | zeroknowledge0x | i18n externalization | +150/-126 |
+| #128 | zeroknowledge0x | Responsive breakpoints | +156/-0 |
+| #129 | iccccccccccccc | Query signature dedup (@contextmanager) | +99/-9 |
+| #133 | zeroknowledge0x | Lesson quality scoring engine | +319/-0 |
+
 ## v1.1.0 — 2026-05-10
 
 ### Knowledge Base
