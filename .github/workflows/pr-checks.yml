@@ -3,15 +3,6 @@ name: 🚨 Misaka Network Agent Auditor
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    paths:
-      - '**.py'
-      - '**.js'
-      - '**.json'
-      - 'core/**'
-      - 'scripts/**'
-      - 'tests/**'
-      - 'misakanet/**'
-      - 'docs/**'
 
 jobs:
   audit:
