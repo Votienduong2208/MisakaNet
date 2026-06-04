@@ -2775,21 +2775,64 @@ async function registerNode() {
         <div style="display:flex;align-items:center;gap:10px;">
           <span style="font-size:22px;">🧠</span>
           <div>
-            <div style="font-weight:700;font-size:14px;font-family:'JetBrains Mono',monospace;">${estimatedName}</div>
+            <div class="reg-node-name" style="font-weight:700;font-size:14px;font-family:'JetBrains Mono',monospace;">${estimatedName}</div>
             <div style="font-size:11px;color:#636d7b;">Agent: ${getAgentLabel(selectedAgent)} · 预估 #${estimatedNode}${name ? `<br>注册名称: ${name}` : ""}</div>
           </div>
-          <span style="margin-left:auto;font-size:11px;color:#58a6ff;animation:pulse 1.5s infinite;">⏳ 分配中</span>
+          <span class="reg-status-icon" style="margin-left:auto;font-size:11px;color:#58a6ff;animation:pulse 1.5s infinite;">⏳</span>
+          <span class="reg-status-text" style="font-size:11px;color:#58a6ff;">分配中</span>
         </div>
       </div>
       <div style="margin:10px 0;padding:8px 10px;background:#0d1117;border-radius:6px;font-size:12px;color:#636d7b;line-height:1.7;">
         ${entryTestSteps}
       </div>
-      <div style="text-align:center;margin-top:10px;font-size:12px;color:#636d7b;">
+      <div class="reg-wait-msg" style="text-align:center;margin-top:10px;font-size:12px;color:#636d7b;">
         ⏳ 无需审核，自动分配中（最终节点号以 Issue 回复为准，预计30秒后刷新可见）<br>
         <a href="${issue.html_url}" target="_blank" style="color:#60a5fa;">📋 查看欢迎消息</a>
       </div>`;
 
-    // Manual refresh: removed auto-redirect; user can refresh or click link at their own pace
+    // ── Auto-poll: check Issue comments for welcome message ──
+    if (data.issue_number) {
+      const pollInterval = 10000;  // 10s
+      const maxPolls = 18;         // 3 minutes max
+      let polls = 0;
+      const pollTimer = setInterval(async () => {
+        polls++;
+        try {
+          const cr = await fetch(`${BASE}/issues/${data.issue_number}/comments`);
+          if (!cr.ok) return;
+          const comments = await cr.json();
+          for (const c of comments) {
+            // Look for welcome message with confirmed node ID
+            const match = c.body.match(/节点代号.*?[*]{2}(Misaka\d+)[*]{2}/);
+            if (match) {
+              const confirmedName = match[1];
+              const confirmedNum = parseInt(confirmedName.replace('Misaka', ''), 10);
+              // Update UI: ⏳ → ✅, "分配中" → "已分配"
+              const statusIcon = document.querySelector('.register-result .reg-status-icon');
+              const statusText = document.querySelector('.register-result .reg-status-text');
+              if (statusIcon) statusIcon.outerHTML = '<span class="reg-status-icon" style="margin-left:auto;font-size:14px;color:#22c55e;">✅</span>';
+              if (statusText) statusText.textContent = '已分配';
+              // Update node name if different from estimate
+              const nameEl = document.querySelector('.register-result .reg-node-name');
+              if (nameEl) nameEl.textContent = confirmedName;
+              // Remove "wait for refresh" message
+              const waitMsg = document.querySelector('.register-result .reg-wait-msg');
+              if (waitMsg) waitMsg.remove();
+              clearInterval(pollTimer);
+              return;
+            }
+          }
+        } catch (e) {
+          // Silent fail — polling will continue
+        }
+        if (polls >= maxPolls) {
+          clearInterval(pollTimer);
+          // After timeout, show friendly message
+          const waitMsg = document.querySelector('.register-result .reg-wait-msg');
+          if (waitMsg) waitMsg.textContent = '⏳ 注册已提交，请刷新页面查看最终节点号';
+        }
+      }, pollInterval);
+    }
 
   } catch (err) {
     result.style.display = "block";
