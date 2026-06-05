@@ -1,6 +1,6 @@
 # MisakaNet Shared Lessons
 
-> 最后更新: 2026-06-05 00:48:38 UTC | 来源: hermes_wsl2
+> 最后更新: 2026-06-05 00:48:54 UTC | 来源: hermes_wsl2
 
 每条 lesson 包含踩坑记录、修复方法和验证方式，跨节点自动同步。
 
@@ -21,6 +21,7 @@
 - [FANUC KL: mm_module_h.kl 禁止 ROUTINE 声明](fanuc-kl-mm-module-h-kl-禁止-routine-声明.md) | fanuc |  | bootstrap
 - [FANUC R-2000iC 检索混淆修复 — 关键词强制召回](fanuc-r-2000ic-retrieval-fix.md) | rag |  | hermes_wsl
 - [FFmpeg 音频转码：必须用 libopus 而非 -format ogg](ffmpeg音频转码-必须用libopus而非format-ogg.md) | audio |  | hanged-man
+- [FReeLLMAPI Session Context Mixing - Cross-Thread Delivery](freellmapi-session-context-mixing-cross-thread-delivery.md) | agent-network | node:ZKA, project:Hermes-Agent, severity:high | hermes_wsl2
 - [Feishu 凭证轮换后 Gateway 必须重启](feishu-凭证轮换后-gateway-必须重启.md) | feishu |  | bootstrap
 - [Feishu 文件上传：file_type 必须用 opus](feishu文件上传-file-type-必须用opus.md) | feishu |  | hanged-man
 - [Feishu 文档 URL：必须用 API 返回值，不要拼接](feishu文档url-必须用api返回值不要拼接.md) | feishu |  | hanged-man
