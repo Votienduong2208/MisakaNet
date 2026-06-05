@@ -62,6 +62,9 @@ def _ensure_schema(conn: sqlite3.Connection) -> None:
 class TelemetryPipeline:
     """Async producer-consumer pipeline for search telemetry.
 
+    Uses a single persistent SQLite connection with asyncio.Lock gating
+    to avoid connection churn and prevent concurrent write contention.
+
     Usage::
 
         async with TelemetryPipeline(db_path) as pipeline:
@@ -77,6 +80,8 @@ class TelemetryPipeline:
         self._consumer_task: asyncio.Task[None] | None = None
         self._shutdown_event = asyncio.Event()
         self._closed = False
+        self._conn: sqlite3.Connection | None = None
+        self._write_lock = asyncio.Lock()
 
     # -- async context manager --------------------------------------------------
 
@@ -90,15 +95,18 @@ class TelemetryPipeline:
     # -- lifecycle --------------------------------------------------------------
 
     async def start(self) -> None:
-        """Start the background consumer task."""
+        """Start the background consumer task and open persistent connection."""
         if self._consumer_task is not None:
             return
         self._shutdown_event.clear()
         self._closed = False
+        self._conn = sqlite3.connect(str(self._db_path), timeout=5)
+        self._conn.execute("PRAGMA journal_mode=WAL")
+        _ensure_schema(self._conn)
         self._consumer_task = asyncio.create_task(self._consumer_loop())
 
     async def shutdown(self) -> None:
-        """Flush remaining events and stop the consumer task."""
+        """Flush remaining events, stop consumer, close connection."""
         if self._closed:
             return
         self._closed = True
@@ -109,6 +117,9 @@ class TelemetryPipeline:
             except asyncio.CancelledError:
                 pass
             self._consumer_task = None
+        if self._conn is not None:
+            self._conn.close()
+            self._conn = None
 
     # -- producer ---------------------------------------------------------------
 
@@ -146,27 +157,26 @@ class TelemetryPipeline:
         while not self._shutdown_event.is_set():
             batch: list[dict[str, Any]] = []
             try:
-                # Wait for first event or shutdown
                 event = await asyncio.wait_for(
                     self._queue.get(), timeout=FLUSH_INTERVAL_S
                 )
                 batch.append(event)
-                # Drain up to BATCH_SIZE - 1 more without blocking
                 for _ in range(BATCH_SIZE - 1):
                     try:
                         batch.append(self._queue.get_nowait())
                     except asyncio.QueueEmpty:
                         break
             except asyncio.TimeoutError:
-                # No events within flush interval — loop back
                 continue
 
             if batch:
-                self._sync_write(batch)
-                self._run_sliding_window_audit()
+                async with self._write_lock:
+                    self._sync_write(batch)
+                    self._run_sliding_window_audit()
 
-        # Shutdown: flush remaining events
-        await self._drain_queue()
+        # Shutdown: flush remaining events under lock
+        async with self._write_lock:
+            await self._drain_queue()
 
     async def _drain_queue(self) -> None:
         """Flush all remaining events in the queue."""
@@ -179,107 +189,98 @@ class TelemetryPipeline:
         if batch:
             self._sync_write(batch)
 
-    # -- synchronous DB operations (run in executor to avoid blocking) ----------
+    # -- synchronous DB operations (use persistent connection) ------------------
 
     def _sync_write(self, batch: list[dict[str, Any]]) -> None:
-        """Write a batch of events to SQLite synchronously."""
+        """Write a batch of events to SQLite using the persistent connection."""
+        if self._conn is None:
+            logger.error("Telemetry write skipped: no connection")
+            return
         try:
             self._db_path.parent.mkdir(parents=True, exist_ok=True)
-            conn = sqlite3.connect(str(self._db_path), timeout=5)
-            try:
-                _ensure_schema(conn)
-                conn.executemany(
-                    """
-                    INSERT INTO search_telemetry
-                        (query, timestamp, latency_ms, cache_hit, query_signature)
-                    VALUES (?, ?, ?, ?, ?)
-                    """,
-                    [
-                        (
-                            e["query"],
-                            e["timestamp"],
-                            e["latency_ms"],
-                            e["cache_hit"],
-                            e["query_signature"],
-                        )
-                        for e in batch
-                    ],
-                )
-                conn.commit()
-            except Exception:
-                conn.rollback()
-                logger.error("Telemetry batch write failed", exc_info=True)
-            finally:
-                conn.close()
+            self._conn.executemany(
+                """
+                INSERT INTO search_telemetry
+                    (query, timestamp, latency_ms, cache_hit, query_signature)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                [
+                    (
+                        e["query"],
+                        e["timestamp"],
+                        e["latency_ms"],
+                        e["cache_hit"],
+                        e["query_signature"],
+                    )
+                    for e in batch
+                ],
+            )
+            self._conn.commit()
         except Exception:
-            logger.error("Telemetry DB connection failed", exc_info=True)
+            self._conn.rollback()
+            logger.error("Telemetry batch write failed", exc_info=True)
 
     def _run_sliding_window_audit(self) -> None:
         """Run sliding window audit over last 10 telemetry rows.
 
-        Mirrors the audit logic from MisakaNetSearchTool._audit_sliding_window.
+        Uses the persistent connection with a separate cursor.
         """
+        if self._conn is None:
+            return
         try:
-            conn = sqlite3.connect(str(self._db_path), timeout=5)
-            try:
-                _ensure_schema(conn)
-                count = conn.execute(
-                    "SELECT COUNT(*) FROM search_telemetry"
-                ).fetchone()[0]
-                if count < 10:
-                    return
+            count = self._conn.execute(
+                "SELECT COUNT(*) FROM search_telemetry"
+            ).fetchone()[0]
+            if count < 10:
+                return
 
-                rows = conn.execute(
+            rows = self._conn.execute(
+                """
+                SELECT timestamp, cache_hit
+                FROM search_telemetry
+                ORDER BY timestamp DESC
+                LIMIT 10
+                """
+            ).fetchall()
+
+            timestamps = [r[0] for r in rows]
+            cache_hits = [r[1] for r in rows]
+            window_span = max(timestamps) - min(timestamps)
+            cache_hit_rate = sum(cache_hits) / len(cache_hits)
+
+            now = time.time()
+
+            # Condition Alpha: Rate limit — 10 queries in < 2 seconds
+            if window_span < 2.0:
+                self._conn.execute(
                     """
-                    SELECT timestamp, cache_hit
-                    FROM search_telemetry
-                    ORDER BY timestamp DESC
-                    LIMIT 10
+                    INSERT INTO local_blacklist (blocked_until, reason, hit_count)
+                    VALUES (?, 'rate_limit', 1)
+                    """,
+                    (now + 600,),
+                )
+                self._conn.commit()
+                logger.warning(
+                    "Sliding window audit: rate limit trigger (10 queries in %.1fs)",
+                    window_span,
+                )
+            # Condition Beta: Low quality — cache hit rate below 10%
+            elif cache_hit_rate < 0.10:
+                self._conn.execute(
                     """
-                ).fetchall()
-
-                timestamps = [r[0] for r in rows]
-                cache_hits = [r[1] for r in rows]
-                window_span = max(timestamps) - min(timestamps)
-                cache_hit_rate = sum(cache_hits) / len(cache_hits)
-
-                now = time.time()
-
-                # Condition Alpha: Rate limit — 10 queries in < 2 seconds
-                if window_span < 2.0:
-                    conn.execute(
-                        """
-                        INSERT INTO local_blacklist (blocked_until, reason, hit_count)
-                        VALUES (?, 'rate_limit', 1)
-                        """,
-                        (now + 600,),
-                    )
-                    conn.commit()
-                    logger.warning(
-                        "Sliding window audit: rate limit trigger (10 queries in %.1fs)",
-                        window_span,
-                    )
-                # Condition Beta: Low quality — cache hit rate below 10%
-                elif cache_hit_rate < 0.10:
-                    conn.execute(
-                        """
-                        INSERT INTO local_blacklist (blocked_until, reason, hit_count)
-                        VALUES (?, 'low_quality', 1)
-                        """,
-                        (now + 300,),
-                    )
-                    conn.commit()
-                    logger.warning(
-                        "Sliding window audit: low quality trigger (cache hit rate %.1f%%)",
-                        cache_hit_rate * 100,
-                    )
-            except Exception:
-                conn.rollback()
-                logger.error("Sliding window audit failed", exc_info=True)
-            finally:
-                conn.close()
+                    INSERT INTO local_blacklist (blocked_until, reason, hit_count)
+                    VALUES (?, 'low_quality', 1)
+                    """,
+                    (now + 300,),
+                )
+                self._conn.commit()
+                logger.warning(
+                    "Sliding window audit: low quality trigger (cache hit rate %.1f%%)",
+                    cache_hit_rate * 100,
+                )
         except Exception:
-            logger.error("Sliding window audit DB connection failed", exc_info=True)
+            self._conn.rollback()
+            logger.error("Sliding window audit failed", exc_info=True)
 
     # -- read-only queries ------------------------------------------------------
 
@@ -290,7 +291,7 @@ class TelemetryPipeline:
         )
 
     def _sync_summary(self) -> dict[str, Any]:
-        """Synchronous summary query."""
+        """Synchronous summary query (uses separate connection — read-only)."""
         try:
             conn = sqlite3.connect(str(self._db_path), timeout=5)
             try:
