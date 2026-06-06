@@ -9,7 +9,7 @@
 > docs/wiki/ 下的文件为历史遗留，新内容请提交到根目录。
 
 **GitHub:** https://github.com/Ikalus1988/MisakaNet
-**Dashboard:** https://ikalus1988.github.io/MisakaNet/
+**Dashboard:** https://misakanet.org/
 
 ## Current Stats
 
