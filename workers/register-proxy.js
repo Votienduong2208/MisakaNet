@@ -176,7 +176,7 @@ function serveLandingPage() {
       <dd>健康检查 (返回 Token / KV 配置状态)</dd>
     </dl>
   </div>
-  <a class="btn" href="https://ikalus1988.github.io/MisakaNet/">← 返回注册页面</a>
+  <a class="btn" href="https://misakanet.org/">← 返回注册页面</a>
 </div>
 </body>
 </html>`, {
