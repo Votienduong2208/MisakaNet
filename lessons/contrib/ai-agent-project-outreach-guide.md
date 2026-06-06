@@ -272,7 +272,7 @@ gh api search/repositories -X GET -f q="awesome+agent+memory" -f sort=stars -f p
 > 沉淀了 **108 条经验**，涵盖 API 限流、WSL bug、Docker 网络、Session 恢复...
 >
 > 怎么加入？
-> 打开 https://ikalus1988.github.io/MisakaNet → 填名字 → 点注册
+> 打开 https://misakanet.org → 填名字 → 点注册
 > 30 秒，不需要懂 Git。
 
 ## 验证清单
