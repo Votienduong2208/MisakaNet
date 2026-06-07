@@ -52,8 +52,8 @@ describe('🛡️ MisakaNet Frontend Shield', () => {
       sanitize: (html) => {
         if (typeof html !== 'string') return '';
         return String(html)
-          .replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, '')
-          .replace(/\bon\w+\s*=\s*"[^"]*"/gi, '');
+          .replace(/<script[^>]*>[\s\S]*?<\/script\s*>/gi, '')
+          .replace(/\bon\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '');
       },
     };
 
