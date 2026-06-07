@@ -35,7 +35,13 @@ const CORS_HEADERS = {
 function jsonResponse(body, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { "content-type": "application/json", ...CORS_HEADERS },
+    headers: {
+      "content-type": "application/json",
+      ...CORS_HEADERS,
+      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+      "Pragma": "no-cache",
+      "Expires": "0",
+    },
   });
 }
 
