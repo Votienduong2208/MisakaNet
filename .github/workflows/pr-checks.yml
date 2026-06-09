@@ -138,11 +138,12 @@ jobs:
                 ? `\n🕵️ **SUSPICIOUS**: ${sizeNotes}`
                 : '';
 
-              reportBody = `${header}${coverageNote}${sizeWarning}
-
-\`\`\`text
-${report.slice(0, 3000)}
-\`\`\``;
+              reportBody = [header, coverageNote, sizeWarning,
+                '',
+                '```text',
+                report.slice(0, 3000),
+                '```'
+              ].filter(Boolean).join('\n');
 
               suiteFailed = !success || parseInt(coverage) < threshold;
             } catch {
