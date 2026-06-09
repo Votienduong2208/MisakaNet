@@ -104,3 +104,4 @@ CMDEOF
           echo ""
           echo "=== ✅ Patrol Complete: $(date -u) ==="
           echo "Next run: $(date -u -d '+4 hours')"
+# force reindex
