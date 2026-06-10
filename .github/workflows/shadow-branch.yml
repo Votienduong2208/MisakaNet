@@ -30,17 +30,29 @@ jobs:
           echo "=== Shadow Branch: PR #$PR_NUM ==="
           echo "  head SHA: ${HEAD_SHA:0:7}"
           echo "  shadow ref: $SHADOW_REF"
+          echo "  GH_TOKEN available: $([ -n "$GH_TOKEN" ] && echo yes || echo no)"
+
+          # fork PR 无写权限 → 跳过（静默降级）
+          CAN_WRITE=true
+          gh api repos/Ikalus1988/MisakaNet/git/refs --method POST \
+            --field ref="refs/heads/.shadow-probe-$$" \
+            --field sha="$HEAD_SHA" &>/dev/null || CAN_WRITE=false
+          if [ "$CAN_WRITE" = false ]; then
+            echo "  → SKIP: GITHUB_TOKEN lacks git write permission (fork PR)"
+            exit 0
+          fi
+          # 清理探测分支
+          gh api repos/Ikalus1988/MisakaNet/git/refs/heads/.shadow-probe-$$ \
+            --method DELETE &>/dev/null || true
 
           # 创建或更新 shadow 分支镜像
           if gh api repos/Ikalus1988/MisakaNet/git/refs/"$SHADOW_REF" --jq '.ref' &>/dev/null; then
-            # 已存在 → 更新
             gh api repos/Ikalus1988/MisakaNet/git/refs/"$SHADOW_REF" \
               --method PATCH \
               --field sha="$HEAD_SHA" \
               --field force=true > /dev/null
             echo "  → Shadow branch updated"
           else
-            # 新建
             gh api repos/Ikalus1988/MisakaNet/git/refs \
               --method POST \
               --field ref="$SHADOW_REF" \
