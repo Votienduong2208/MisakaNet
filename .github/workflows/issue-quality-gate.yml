@@ -16,10 +16,10 @@ jobs:
       - name: Validate Issue & Apply Labels
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUM: ${{ github.event.issue.number }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
         run: |
-          ISSUE_NUM="${{ github.event.issue.number }}"
-          BODY="${{ github.event.issue.body }}"
-          TITLE="${{ github.event.issue.title }}"
 
           echo "=== Issue Quality Gate: #$ISSUE_NUM ==="
 
@@ -28,20 +28,20 @@ jobs:
           HAS_CHECKBOX=false
 
           # 检测 AC 标记
-          if echo "$BODY" | grep -qi "acceptance criteria\|AC\|验收标准\|MANDATORY"; then
+          if echo "$ISSUE_BODY" | grep -qi "acceptance criteria\|AC\|验收标准\|MANDATORY"; then
             HAS_AC=true
             echo "  ✅ AC section found"
           fi
 
           # 检测复选框
-          if echo "$BODY" | grep -q "\[ \]\|\[x\]\|\[X\]"; then
+          if echo "$ISSUE_BODY" | grep -q "\[ \]\|\[x\]\|\[X\]"; then
             HAS_CHECKBOX=true
             echo "  ✅ Checkboxes found"
           fi
 
           # 检测是否包含 Bounty 标签
           HAS_BOUNTY=false
-          if echo "$TITLE" | grep -qi "\[bounty\]"; then
+          if echo "$ISSUE_TITLE" | grep -qi "\[bounty\]"; then
             HAS_BOUNTY=true
             echo "  ✅ Bounty tag found in title"
           fi
