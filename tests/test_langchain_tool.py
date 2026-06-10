@@ -216,8 +216,11 @@ class TestMisakaNetSearchTool(unittest.TestCase):
                         (f"rapid-{i}", now + i * 0.05, 10.0, 0),
                     )
 
-            # 10th call records telemetry + triggers audit → blacklist entry created
+            # 10th call records telemetry
             tool._run("rapid-9")
+
+            # Explicitly trigger sliding window audit (now runs async in TelemetryPipeline per Issue #138)
+            tool._audit_sliding_window()
 
             # 11th call should raise PermissionError (blacklisted from audit)
             with self.assertRaises(PermissionError) as ctx:
@@ -244,8 +247,11 @@ class TestMisakaNetSearchTool(unittest.TestCase):
                         (f"miss-{i}", now + i * 3, 100.0, 0),
                     )
 
-            # 10th call records telemetry (cache miss) + triggers audit → blacklist entry
+            # 10th call records telemetry (cache miss)
             tool._run("miss-9")
+
+            # Explicitly trigger sliding window audit (now runs async in TelemetryPipeline per Issue #138)
+            tool._audit_sliding_window()
 
             # 11th call should raise PermissionError (blacklisted from audit)
             with self.assertRaises(PermissionError) as ctx:
