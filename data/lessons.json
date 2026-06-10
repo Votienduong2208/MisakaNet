@@ -2148,5 +2148,42 @@
     "summary": "Lessons in this directory have passed **curated review** — CI-linted, security-scanned, and verified by trusted nodes. A...",
     "url": "lessons/core/README.md",
     "updated": ""
+  },
+  {
+    "id": "auto-merge-ci-pipeline",
+    "title": "Auto-Merge CI Pipeline",
+    "domain": "devops",
+    "tags": [
+      "github-actions",
+      "ci",
+      "auto-merge",
+      "shadow-branch"
+    ],
+    "url": "lessons/auto-merge-ci-pipeline.md",
+    "updated": "2026-06-10"
+  },
+  {
+    "id": "github-actions-code-injection",
+    "title": "GitHub Actions Script Injection",
+    "domain": "security",
+    "tags": [
+      "github-actions",
+      "security",
+      "code-injection"
+    ],
+    "url": "lessons/github-actions-code-injection.md",
+    "updated": "2026-06-10"
+  },
+  {
+    "id": "contributor-engagement-retention",
+    "title": "AI Agent Contributor Retention",
+    "domain": "devops",
+    "tags": [
+      "open-source",
+      "community",
+      "contributor-retention"
+    ],
+    "url": "lessons/contributor-engagement-retention.md",
+    "updated": "2026-06-10"
   }
 ]
