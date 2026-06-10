@@ -21,7 +21,7 @@ jobs:
 
       - name: Mirror PR to Shadow Branch
         env:
-          GH_TOKEN: ${{ secrets.SHELDON_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_NUM="${{ github.event.pull_request.number }}"
           HEAD_SHA="${{ github.event.pull_request.head.sha }}"

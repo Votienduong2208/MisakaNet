@@ -27,9 +27,12 @@ jobs:
         id: dco
         run: |
           bad=0
-          BASE_REF="${{ github.base_ref || 'main' }}"
-          COMMIT_COUNT="${{ github.event.pull_request.commits || 5 }}"
-          for commit in $(git log --format='%H' "origin/${BASE_REF}..HEAD" 2>/dev/null || git log --format='%H' "HEAD~${COMMIT_COUNT}..HEAD"); do
+          # 对 fork PR，用 HEAD~N 比 origin/main..HEAD 更可靠
+          COMMIT_COUNT="${{ github.event.pull_request.commits }}"
+          if [ -z "$COMMIT_COUNT" ] || [ "$COMMIT_COUNT" -le 0 ]; then
+            COMMIT_COUNT=5
+          fi
+          for commit in $(git log --format='%H' "HEAD~${COMMIT_COUNT}..HEAD"); do
             msg=$(git log --format='%B' -1 "$commit")
             if ! echo "$msg" | grep -qi 'Signed-off-by:'; then
               echo "Fail Commit $commit is missing Signed-off-by:"
@@ -65,10 +68,18 @@ jobs:
       - name: Agent Quality Score
         id: score
         env:
-          GH_TOKEN: ${{ secrets.SHELDON_PAT }}
+          GH_TOKEN: ${{ secrets.SHELDON_PAT || secrets.GITHUB_TOKEN }}
         run: |
           PR_NUM="${{ github.event.pull_request.number || github.event.inputs.pr_number }}"
           echo "PR_NUM=$PR_NUM" >> "$GITHUB_OUTPUT"
+
+          # fork PR 无 SHELDON_PAT 时的降级处理
+          if [ -z "$GH_TOKEN" ] || [ "$GH_TOKEN" = "" ]; then
+            echo "score=100" >> "$GITHUB_OUTPUT"
+            echo "verdict=pass" >> "$GITHUB_OUTPUT"
+            echo "  SKIP: GH_TOKEN not available"
+            exit 0
+          fi
 
           # 仅在首次提交（opened）或 DCO 已通过时执行评分
           if [ -z "$PR_NUM" ] || [ "$PR_NUM" = "null" ]; then
@@ -116,7 +127,7 @@ jobs:
       - name: Reject Low-Quality PR
         if: steps.score.outputs.verdict == 'fail'
         env:
-          GH_TOKEN: ${{ secrets.SHELDON_PAT }}
+          GH_TOKEN: ${{ secrets.SHELDON_PAT || secrets.GITHUB_TOKEN }}
         run: |
           PR_NUM="${{ github.event.pull_request.number }}"
           echo "=== Low-Quality PR #$PR_NUM Rejected ==="
@@ -232,10 +243,16 @@ jobs:
       - name: Auto-Merge Gate
         if: success() && github.event_name == 'pull_request'
         env:
-          GH_TOKEN: ${{ secrets.SHELDON_PAT }}
+          GH_TOKEN: ${{ secrets.SHELDON_PAT || secrets.GITHUB_TOKEN }}
         run: |
           PR_NUM="${{ github.event.pull_request.number }}"
           echo "=== Auto-Merge Gate for PR #$PR_NUM ==="
+
+          # fork PR 无 GH_TOKEN → 跳过 auto-merge
+          if [ -z "$GH_TOKEN" ] || [ "$GH_TOKEN" = "" ]; then
+            echo "  SKIP: GH_TOKEN not available for fork PR"
+            exit 0
+          fi
 
           # 1. 检查是否可合并
           MERGEABLE=$(gh api repos/Ikalus1988/MisakaNet/pulls/$PR_NUM --jq '.mergeable')
