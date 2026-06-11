@@ -47,7 +47,7 @@ Instead of manually tracking which subdirectories need `pip install`, scan recur
   run: |
     pip install -r requirements.txt 2>/dev/null || true
     find . -path ./venv -prune -o -name "requirements.txt" \
-      -exec pip install -r {} \; 2>/dev/null || true
+      -print0 | xargs -0 pip install -r 2>/dev/null || true
     pip install pytest pytest-cov
 ```
 

