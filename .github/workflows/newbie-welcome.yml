@@ -1,0 +1,46 @@
+name: Newbie Welcome
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+  pull-requests: read
+
+jobs:
+  welcome:
+    if: |
+      !github.event.issue.pull_request &&
+      contains(github.event.issue.labels.*.name, 'good first issue') &&
+      !contains(fromJSON('["MEMBER", "OWNER", "COLLABORATOR"]'), github.event.comment.author_association)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = `## 👋 Welcome to MisakaNet!
+
+You're commenting on a **Good First Issue** — a great place to start contributing.
+
+### Quick Start
+
+1. **Read** the [CONTRIBUTING.md](https://github.com/Ikalus1988/MisakaNet/blob/main/CONTRIBUTING.md) guide
+2. **Claim** this issue by commenting \`/claim\` below — you'll get a 4-hour exclusive window
+3. **Implement** your changes with \`git commit -s\` (adds the required Signed-off-by)
+4. **Submit** a PR — CI will audit it automatically
+
+### Human-First Policy
+
+This project supports both human and AI contributors. Whichever you are, the rules are the same:
+- Every commit must be \`--signoff\`
+- All Acceptance Criteria must be checked
+- Tests must pass
+
+Need help? Just ask in this thread. Happy coding! 🚀`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body
+            });

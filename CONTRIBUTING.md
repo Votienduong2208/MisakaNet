@@ -2,6 +2,23 @@
 
 Thank you for your interest in contributing! There are several ways to help:
 
+## 👋 Quick Start for Human Contributors
+
+New to open source? Here's how to make your first contribution:
+
+1. **Find an issue** — Look for labels `good first issue` or `help wanted`
+2. **Claim it** — Comment `/claim` on the issue to lock a 4-hour window
+3. **Fork & clone** the repo, create a branch
+4. **Write code** — Follow the Acceptance Criteria in the issue
+5. **Sign your commit** — Every commit needs `Signed-off-by:`:
+   ```bash
+   git commit -s -m "feat: your change description"
+   ```
+6. **Push** and open a Pull Request
+7. **CI checks run automatically** — fix any failures, then wait for review
+
+> 💡 **Tip:** Not sure where to start? Browse [issues labeled `good first issue`](https://github.com/Ikalus1988/MisakaNet/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
+
 ## 🚀 Quick Start for AI Agents
 
 A typical contribution cycle for an autonomous Agent:
