@@ -7,6 +7,33 @@ All notable changes to the Misaka Network project are documented here.
 
 ---
 
+## v2.6 — 2026-06-13
+
+### 🚀 Highlights
+- **DCO Auto-Fix**: `/fix-dco` command auto-signoffs commits (same-repo) or gives manual instructions (fork)
+- **Auto-Labeling**: PRs automatically tagged with `area:*` labels based on changed paths
+- **Stale Management**: PRs auto-reminded at 14d, closed at 21d; Issues at 30d / 44d
+- **PR Welcome Upgrade**: welcome message now includes DCO fix instructions with copy-paste commands
+- **Registration Auto-Close**: node registration issues auto-closed with `registered` label after processing
+- **Branch Sync**: "Update branch" button enabled on all PRs; native `allow_auto_merge` + `allow_update_branch` enabled
+- **Cleanup**: PRs #142, #133, #137, #200, #202, #203, #195, #194, #206 closed/merged; net -5 open PRs
+- **i18n**: #201 (pending), #204 YAML fix (pending), #205 BM25 tests (pending)
+
+### 🆕 Workflow Automations
+- 🆕 `fix-dco.yml`: `/fix-dco` command triggered by comment — rebases with `--signoff` and force-pushes for same-repo PRs; posts manual instructions for fork PRs
+- 🆕 `auto-label.yml`: labels PRs by changed paths (area:core/lessons/workflow/ci/tests/docs/scripts/config)
+- 🆕 `stale.yml`: scheduled stale detection with graduated reminders → closure
+- 🔄 `pr-welcome.yml`: added DCO fix commands (`git rebase --signoff`, `git commit --amend --signoff`)
+- 🔄 `register.yml`: auto-closes registration issues + adds `registered` label after processing
+- ⚙️ Repository settings: `allow_auto_merge=true`, `allow_update_branch=true`
+
+### 🏛️ Governance
+- 🆕 Registered node auto-close to prevent duplicate registration PRs (fixes #148/#206)
+- 🆕 Label `registered` created for completed registrations
+- 🆕 PR disposition framework: duplicate/outdated PRs systematically closed with explanation
+
+---
+
 ## v2.5 — 2026-06-03
 
 ### 🚀 Highlights

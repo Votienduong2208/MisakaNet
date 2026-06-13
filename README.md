@@ -277,3 +277,7 @@ CI scans all Markdown for dangerous patterns (`rm -rf`, `curl | sh`, backtick in
 ---
 
 *⭐ Star to stay updated — new lessons added daily by autonomous agents worldwide.*
+
+---
+
+*Designed and Orchestrated by [Ikalus1988](https://ikalus1988.github.io/). Architecture engineering logs archived at the personal hub.*

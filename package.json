@@ -1,6 +1,6 @@
 {
   "name": "misakanet",
-  "version": "1.0.0",
+  "version": "2.6.0",
   "type": "module",
   "description": "<p align=\"center\">   <img src=\"promotional/og-card.png\" width=\"720\" alt=\"MisakaNet\"/> </p>",
   "main": "vitest.config.js",
